@@ -1,10 +1,10 @@
 ﻿#include <algorithm>
 #include "gtest/gtest.h"
 #include "Helper.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "LinearTransform2.h"
-#include "LinearTransform3.h"
+#include "VEVector2.h"
+#include "VEVector3.h"
+#include "VELinearTransform2.h"
+#include "VELinearTransform3.h"
 
 TEST(LinearTransform, Equal)
 {
@@ -20,8 +20,8 @@ TEST(LinearTransform, Equal)
         EXPECT_EQ(true, a2 == b2);
         EXPECT_EQ(false, a2 == c2);
     };
-    body(LinearTransform2(), Matrix2());
-    body(LinearTransform3(), Matrix3());
+    body(VELinearTransform2(), VEMatrix2());
+    body(VELinearTransform3(), VEMatrix3());
 }
 
 TEST(LinearTransform, NotEqual)
@@ -38,8 +38,8 @@ TEST(LinearTransform, NotEqual)
         EXPECT_EQ(false, a2 != b2);
         EXPECT_EQ(true, a2 != c2);
     };
-    body(LinearTransform2(), Matrix2());
-    body(LinearTransform3(), Matrix3());
+    body(VELinearTransform2(), VEMatrix2());
+    body(VELinearTransform3(), VEMatrix3());
 }
 
 TEST(LinearTransform, Scale)
@@ -62,8 +62,8 @@ TEST(LinearTransform, Scale)
         }
         EXPECT_EQ(LT(r), LT(m).Scale(s));
     };
-    body(LinearTransform2(), Matrix2(), Vector2());
-    body(LinearTransform3(), Matrix3(), Vector3());
+    body(VELinearTransform2(), VEMatrix2(), VEVector2());
+    body(VELinearTransform3(), VEMatrix3(), VEVector3());
 }
 
 TEST(LinearTransform, Rotate)
@@ -85,25 +85,25 @@ TEST(LinearTransform, Rotate)
 
     // 모든 직교행렬의 전치행렬은 역행렬이다.
     // 모든 회전행렬은 직교행렬이다.
-    auto lt2 = LinearTransform2();
+    auto lt2 = VELinearTransform2();
     lt2.Rotate(DegreeToRadian(RendomFloat()));
     checkIdentity(lt2.matrix2 * lt2.matrix2.TransposeMatrix());
 
-    auto lt3 = LinearTransform3();
+    auto lt3 = VELinearTransform3();
     lt3.RotateX(DegreeToRadian(RendomFloat()));
     checkIdentity(lt3.matrix3 * lt3.matrix3.TransposeMatrix());
     
-    lt3 = LinearTransform3();
+    lt3 = VELinearTransform3();
     lt3.RotateY(DegreeToRadian(RendomFloat()));
     checkIdentity(lt3.matrix3 * lt3.matrix3.TransposeMatrix());
     
-    lt3 = LinearTransform3();
+    lt3 = VELinearTransform3();
     lt3.RotateZ(DegreeToRadian(RendomFloat()));
     checkIdentity(lt3.matrix3 * lt3.matrix3.TransposeMatrix());
     
-    auto axis = RendomObjectWithValues<Vector3>();
+    auto axis = RendomObjectWithValues<VEVector3>();
     axis.Normalize();
-    lt3 = LinearTransform3();
+    lt3 = VELinearTransform3();
     lt3.Rotate(axis, DegreeToRadian(RendomFloat()));
     checkIdentity(lt3.matrix3 * lt3.matrix3.TransposeMatrix());
 }
@@ -119,6 +119,6 @@ TEST(LinearTransform, Multiply)
         M r = m1 * m2;
         EXPECT_EQ(LT(r), LT(m1).Multiply(m2));
     };
-    body(LinearTransform2(), Matrix2());
-    body(LinearTransform3(), Matrix3());
+    body(VELinearTransform2(), VEMatrix2());
+    body(VELinearTransform3(), VEMatrix3());
 }

@@ -1,22 +1,22 @@
-#include "LinearTransform3.h"
-#include "Vector3.h"
+#include "VELinearTransform3.h"
+#include "VEVector3.h"
 #include <math.h>
 
-LinearTransform3::LinearTransform3()
+VELinearTransform3::VELinearTransform3()
 	: matrix3() {}
 
-LinearTransform3::LinearTransform3(const DX_API::Matrix3& m)
+VELinearTransform3::VELinearTransform3(const VEMatrix3& m)
 	: matrix3(m) {}
 
-bool LinearTransform3::operator==(const LinearTransform3& lt) const {
+bool VELinearTransform3::operator==(const VELinearTransform3& lt) const {
 	return matrix3 == lt.matrix3;
 }
 
-bool LinearTransform3::operator!=(const LinearTransform3& lt) const {
+bool VELinearTransform3::operator!=(const VELinearTransform3& lt) const {
 	return matrix3 != lt.matrix3;
 }
 
-LinearTransform3& LinearTransform3::Scale(float x, float y, float z) {
+VELinearTransform3& VELinearTransform3::Scale(float x, float y, float z) {
 	matrix3._11 *= x;
 	matrix3._12 *= y;
 	matrix3._13 *= z;
@@ -29,7 +29,7 @@ LinearTransform3& LinearTransform3::Scale(float x, float y, float z) {
 	return *this;
 }
 
-LinearTransform3& LinearTransform3::Scale(const Vector3& v) {
+VELinearTransform3& VELinearTransform3::Scale(const VEVector3& v) {
 	matrix3._11 *= v.x;
 	matrix3._12 *= v.y;
 	matrix3._13 *= v.z;
@@ -42,39 +42,39 @@ LinearTransform3& LinearTransform3::Scale(const Vector3& v) {
 	return *this;
 }
 
-LinearTransform3& LinearTransform3::RotateX(float angle) {
+VELinearTransform3& VELinearTransform3::RotateX(float angle) {
 	float cos = cosf(angle);
 	float sin = sinf(angle);
-	matrix3 *= DX_API::Matrix3(1.f, 0.f, 0.f,
+	matrix3 *= VEMatrix3(1.f, 0.f, 0.f,
 		0.f, cos, -sin,
 		0.f, sin, cos);
 	return *this;
 
 }
 
-LinearTransform3& LinearTransform3::RotateY(float angle) {
+VELinearTransform3& VELinearTransform3::RotateY(float angle) {
 	float cos = cosf(angle);
 	float sin = sinf(angle);
-	matrix3 *= DX_API::Matrix3{ cos, 0.f, sin,
+	matrix3 *= VEMatrix3{ cos, 0.f, sin,
 						  0.f, 1.f, 0.f,
 						  -sin, 0.f, cos };
 	return *this;
 }
 
-LinearTransform3& LinearTransform3::RotateZ(float angle) {
+VELinearTransform3& VELinearTransform3::RotateZ(float angle) {
 	float cos = cosf(angle);
 	float sin = sinf(angle);
-	matrix3 *= DX_API::Matrix3{ cos, -sin, 0.f,
+	matrix3 *= VEMatrix3{ cos, -sin, 0.f,
 						  sin, cos, 0.f,
 						  0.f, 0.f, 1.f };
 	return *this;
 }
 
-LinearTransform3& LinearTransform3::Rotate(const Vector3& axis, float angle) {
+VELinearTransform3& VELinearTransform3::Rotate(const VEVector3& axis, float angle) {
 	float cos = cosf(angle);
 	float sin = sinf(angle);
 	float revCos = 1.f - cos;
-	matrix3 *= DX_API::Matrix3{ cos + revCos * (axis.x * axis.x),
+	matrix3 *= VEMatrix3{ cos + revCos * (axis.x * axis.x),
 						  revCos * (axis.x * axis.y) + (sin * axis.z),
 						  revCos * (axis.x * axis.z) - (sin * axis.y),
 						  revCos * (axis.x * axis.y) - (sin * axis.z),
@@ -86,7 +86,7 @@ LinearTransform3& LinearTransform3::Rotate(const Vector3& axis, float angle) {
 	return *this;
 }
 
-LinearTransform3& LinearTransform3::Multiply(const DX_API::Matrix3& m) {
+VELinearTransform3& VELinearTransform3::Multiply(const VEMatrix3& m) {
 	matrix3 *= m;
 	return *this;
 }

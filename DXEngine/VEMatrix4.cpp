@@ -1,22 +1,22 @@
-#include "Matrix4.h"
-#include "Vector4.h"
+#include "VEMatrix4.h"
+#include "VEVector4.h"
 
-Matrix4::Matrix4()
+VEMatrix4::VEMatrix4()
 	: _11(1.0f), _12(0.0f), _13(0.0f), _14(0.0f)
 	, _21(0.0f), _22(1.0f), _23(0.0f), _24(0.0f)
 	, _31(0.0f), _32(0.0f), _33(1.0f), _34(0.0f)
 	, _41(0.0f), _42(0.0f), _43(0.0f), _44(1.0f) { }
 
-Matrix4::Matrix4(const Vector4& row1,
-	const Vector4& row2,
-	const Vector4& row3,
-	const Vector4& row4)
+VEMatrix4::VEMatrix4(const VEVector4& row1,
+	const VEVector4& row2,
+	const VEVector4& row3,
+	const VEVector4& row4)
 	: _11(row1.x), _12(row1.y), _13(row1.z), _14(row1.w)
 	, _21(row2.x), _22(row2.y), _23(row2.z), _24(row2.w)
 	, _31(row3.x), _32(row3.y), _33(row3.z), _34(row3.w)
 	, _41(row4.x), _42(row4.y), _43(row4.z), _44(row4.w) { }
 
-Matrix4::Matrix4(float m11, float m12, float m13, float m14,
+VEMatrix4::VEMatrix4(float m11, float m12, float m13, float m14,
 	float m21, float m22, float m23, float m24,
 	float m31, float m32, float m33, float m34,
 	float m41, float m42, float m43, float m44)
@@ -25,28 +25,28 @@ Matrix4::Matrix4(float m11, float m12, float m13, float m14,
 	, _31(m31), _32(m32), _33(m33), _34(m34)
 	, _41(m41), _42(m42), _43(m43), _44(m44) { }
 
-bool Matrix4::operator == (const Matrix4& m) const {
+bool VEMatrix4::operator == (const VEMatrix4& m) const {
 	return _11 == m._11 && _12 == m._12 && _13 == m._13 && _14 == m._14
 		&& _21 == m._21 && _22 == m._22 && _23 == m._23 && _24 == m._24
 		&& _31 == m._31 && _32 == m._32 && _33 == m._33 && _34 == m._34
 		&& _41 == m._41 && _42 == m._42 && _43 == m._43 && _44 == m._44;
 }
 
-bool Matrix4::operator != (const Matrix4& m) const {
+bool VEMatrix4::operator != (const VEMatrix4& m) const {
 	return _11 != m._11 || _12 != m._12 || _13 != m._13 || _14 != m._14
 		|| _21 != m._21 || _22 != m._22 || _23 != m._23 || _24 != m._24
 		|| _31 != m._31 || _32 != m._32 || _33 != m._33 || _34 != m._34
 		|| _41 != m._41 || _42 != m._42 || _43 != m._43 || _44 != m._44;
 }
 
-Matrix4 Matrix4::operator * (float f) const {
+VEMatrix4 VEMatrix4::operator * (float f) const {
 	return { (_11 * f), (_12 * f), (_13 * f), (_14 * f)
 		   , (_21 * f), (_22 * f), (_23 * f), (_24 * f)
 		   , (_31 * f), (_32 * f), (_33 * f), (_34 * f)
 		   , (_41 * f), (_42 * f), (_43 * f), (_44 * f) };
 }
 
-Matrix4& Matrix4::operator *= (float f) {
+VEMatrix4& VEMatrix4::operator *= (float f) {
 	_11 *= f; _12 *= f; _13 *= f; _14 *= f;
 	_21 *= f; _22 *= f; _23 *= f; _24 *= f;
 	_31 *= f; _32 *= f; _33 *= f; _34 *= f;
@@ -54,22 +54,22 @@ Matrix4& Matrix4::operator *= (float f) {
 	return *this;
 }
 
-Matrix4 Matrix4::operator + (const Matrix4& m) const {
+VEMatrix4 VEMatrix4::operator + (const VEMatrix4& m) const {
 	return { _11 + m._11, _12 + m._12, _13 + m._13, _14 + m._14
 		   , _21 + m._21, _22 + m._22, _23 + m._23, _24 + m._24
 		   , _31 + m._31, _32 + m._32, _33 + m._33, _34 + m._34
 		   , _41 + m._41, _42 + m._42, _43 + m._43, _44 + m._44 };
 }
 
-Matrix4 Matrix4::operator - (const Matrix4& m) const {
+VEMatrix4 VEMatrix4::operator - (const VEMatrix4& m) const {
 	return { _11 - m._11, _12 - m._12, _13 - m._13, _14 - m._14
 		   , _21 - m._21, _22 - m._22, _23 - m._23, _24 - m._24
 		   , _31 - m._31, _32 - m._32, _33 - m._33, _34 - m._34
 		   , _41 - m._41, _42 - m._42, _43 - m._43, _44 - m._44 };
 }
 
-Matrix4 Matrix4::operator * (const Matrix4& m) const {
-	Matrix4 mat;
+VEMatrix4 VEMatrix4::operator * (const VEMatrix4& m) const {
+	VEMatrix4 mat;
 	mat._11 = (_11 * m._11) + (_12 * m._21) + (_13 * m._31) + (_14 * m._41);
 	mat._12 = (_11 * m._12) + (_12 * m._22) + (_13 * m._32) + (_14 * m._42);
 	mat._13 = (_11 * m._13) + (_12 * m._23) + (_13 * m._33) + (_14 * m._43);
@@ -89,7 +89,7 @@ Matrix4 Matrix4::operator * (const Matrix4& m) const {
 	return mat;
 }
 
-Matrix4& Matrix4::operator += (const Matrix4& m) {
+VEMatrix4& VEMatrix4::operator += (const VEMatrix4& m) {
 	_11 += m._11; _12 += m._12; _13 += m._13; _14 += m._14;
 	_21 += m._21; _22 += m._22; _23 += m._23; _24 += m._24;
 	_31 += m._31; _32 += m._32; _33 += m._33; _34 += m._34;
@@ -97,7 +97,7 @@ Matrix4& Matrix4::operator += (const Matrix4& m) {
 	return *this;
 }
 
-Matrix4& Matrix4::operator -= (const Matrix4& m) {
+VEMatrix4& VEMatrix4::operator -= (const VEMatrix4& m) {
 	_11 -= m._11; _12 -= m._12; _13 -= m._13; _14 -= m._14;
 	_21 -= m._21; _22 -= m._22; _23 -= m._23; _24 -= m._24;
 	_31 -= m._31; _32 -= m._32; _33 -= m._33; _34 -= m._34;
@@ -105,8 +105,8 @@ Matrix4& Matrix4::operator -= (const Matrix4& m) {
 	return *this;
 }
 
-Matrix4& Matrix4::operator *= (const Matrix4& m) {
-	Matrix4 mat{ *this };
+VEMatrix4& VEMatrix4::operator *= (const VEMatrix4& m) {
+	VEMatrix4 mat{ *this };
 	_11 = (mat._11 * m._11) + (mat._12 * m._21) + (mat._13 * m._31) + (mat._14 * m._41);
 	_12 = (mat._11 * m._12) + (mat._12 * m._22) + (mat._13 * m._32) + (mat._14 * m._42);
 	_13 = (mat._11 * m._13) + (mat._12 * m._23) + (mat._13 * m._33) + (mat._14 * m._43);
@@ -126,21 +126,21 @@ Matrix4& Matrix4::operator *= (const Matrix4& m) {
 	return *this;
 }
 
-Matrix4 Matrix4::TransposeMatrix() const {
+VEMatrix4 VEMatrix4::TransposeMatrix() const {
 	return { _11, _21, _31, _41
 		   , _12, _22, _32, _42
 		   , _13, _23, _33, _43
 		   , _14, _24, _34, _44 };
 }
 
-Matrix4 Matrix4::InverseMatrix() const {
+VEMatrix4 VEMatrix4::InverseMatrix() const {
 	float determinant = Determinant();
 	// invertible matrix
 	if (determinant != 0.0f) {
 		// adjoint matrix / determinant
 		float detInv = 1.0f / determinant;
 
-		Matrix4 mat;
+		VEMatrix4 mat;
 		mat._11 = ((_23 * _34 * _42) - (_24 * _33 * _42) + (_24 * _32 * _43) - (_22 * _34 * _43) - (_23 * _32 * _44) + (_22 * _33 * _44)) * detInv;
 		mat._12 = ((_14 * _33 * _42) - (_13 * _34 * _42) - (_14 * _32 * _43) + (_12 * _34 * _43) + (_13 * _32 * _44) - (_12 * _33 * _44)) * detInv;
 		mat._13 = ((_13 * _24 * _42) - (_14 * _23 * _42) + (_14 * _22 * _43) - (_12 * _24 * _43) - (_13 * _22 * _44) + (_12 * _23 * _44)) * detInv;
@@ -165,7 +165,7 @@ Matrix4 Matrix4::InverseMatrix() const {
 	}
 }
 
-float Matrix4::Determinant() const {
+float VEMatrix4::Determinant() const {
 	return
 		(_14 * _23 * _32 * _41) - (_13 * _24 * _32 * _41) - (_14 * _22 * _33 * _41) + (_12 * _24 * _33 * _41) + (_13 * _22 * _34 * _41) - (_12 * _23 * _34 * _41) -
 		(_14 * _23 * _31 * _42) + (_13 * _24 * _31 * _42) + (_14 * _21 * _33 * _42) - (_11 * _24 * _33 * _42) - (_13 * _21 * _34 * _42) + (_11 * _23 * _34 * _42) +

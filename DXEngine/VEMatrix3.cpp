@@ -1,63 +1,63 @@
-#include "Matrix3.h"
-#include "Vector3.h"
+#include "VEMatrix3.h"
+#include "VEVector3.h"
 
-Matrix3::Matrix3()
+VEMatrix3::VEMatrix3()
 	: _11(1.0f), _12(0.0f), _13(0.0f)
 	, _21(0.0f), _22(1.0f), _23(0.0f)
 	, _31(0.0f), _32(0.0f), _33(1.0f) {}
 
-Matrix3::Matrix3(const Vector3& row1, const Vector3& row2, const Vector3& row3)
+VEMatrix3::VEMatrix3(const VEVector3& row1, const VEVector3& row2, const VEVector3& row3)
 	: _11(row1.x), _12(row1.y), _13(row1.z)
 	, _21(row2.x), _22(row2.y), _23(row2.z)
 	, _31(row3.x), _32(row3.y), _33(row3.z) {}
 
-Matrix3::Matrix3(float m11, float m12, float m13,
+VEMatrix3::VEMatrix3(float m11, float m12, float m13,
 	float m21, float m22, float m23,
 	float m31, float m32, float m33)
 	: _11(m11), _12(m12), _13(m13)
 	, _21(m21), _22(m22), _23(m23)
 	, _31(m31), _32(m32), _33(m33) {}
 
-bool Matrix3::operator == (const Matrix3& m) const {
+bool VEMatrix3::operator == (const VEMatrix3& m) const {
 	return _11 == m._11 && _12 == m._12 && _13 == m._13
 		&& _21 == m._21 && _22 == m._22 && _23 == m._23
 		&& _31 == m._31 && _32 == m._32 && _33 == m._33;
 }
 
-bool Matrix3::operator != (const Matrix3& m) const {
+bool VEMatrix3::operator != (const VEMatrix3& m) const {
 	return _11 != m._11 || _12 != m._12 || _13 != m._13
 		|| _21 != m._21 || _22 != m._22 || _23 != m._23
 		|| _31 != m._31 || _32 != m._32 || _33 != m._33;
 }
 
-Matrix3 Matrix3::operator * (float f) const {
+VEMatrix3 VEMatrix3::operator * (float f) const {
 	return { (_11 * f), (_12 * f), (_13 * f)
 		   , (_21 * f), (_22 * f), (_23 * f)
 		   , (_31 * f), (_32 * f), (_33 * f) };
 }
 
 
-Matrix3& Matrix3::operator *= (float f) {
+VEMatrix3& VEMatrix3::operator *= (float f) {
 	_11 *= f; _12 *= f; _13 *= f;
 	_21 *= f; _22 *= f; _23 *= f;
 	_31 *= f; _32 *= f; _33 *= f;
 	return *this;
 }
 
-Matrix3 Matrix3::operator + (const Matrix3& m) const {
+VEMatrix3 VEMatrix3::operator + (const VEMatrix3& m) const {
 	return { _11 + m._11, _12 + m._12, _13 + m._13
 		   , _21 + m._21, _22 + m._22, _23 + m._23
 		   , _31 + m._31, _32 + m._32, _33 + m._33 };
 }
 
-Matrix3 Matrix3::operator - (const Matrix3& m) const {
+VEMatrix3 VEMatrix3::operator - (const VEMatrix3& m) const {
 	return { _11 - m._11, _12 - m._12, _13 - m._13
 		   , _21 - m._21, _22 - m._22, _23 - m._23
 		   , _31 - m._31, _32 - m._32, _33 - m._33 };
 }
 
-Matrix3 Matrix3::operator * (const Matrix3& m) const {
-	Matrix3 mat;
+VEMatrix3 VEMatrix3::operator * (const VEMatrix3& m) const {
+	VEMatrix3 mat;
 	mat._11 = (_11 * m._11) + (_12 * m._21) + (_13 * m._31);
 	mat._12 = (_11 * m._12) + (_12 * m._22) + (_13 * m._32);
 	mat._13 = (_11 * m._13) + (_12 * m._23) + (_13 * m._33);
@@ -71,7 +71,7 @@ Matrix3 Matrix3::operator * (const Matrix3& m) const {
 }
 
 
-Matrix3& Matrix3::operator += (const Matrix3& m) {
+VEMatrix3& VEMatrix3::operator += (const VEMatrix3& m) {
 	_11 += m._11;
 	_12 += m._12;
 	_13 += m._13;
@@ -84,7 +84,7 @@ Matrix3& Matrix3::operator += (const Matrix3& m) {
 	return *this;
 }
 
-Matrix3& Matrix3::operator -= (const Matrix3& m) {
+VEMatrix3& VEMatrix3::operator -= (const VEMatrix3& m) {
 	_11 -= m._11;
 	_12 -= m._12;
 	_13 -= m._13;
@@ -97,8 +97,8 @@ Matrix3& Matrix3::operator -= (const Matrix3& m) {
 	return *this;
 }
 
-Matrix3& Matrix3::operator *= (const Matrix3& m) {
-	Matrix3 mat{ *this };
+VEMatrix3& VEMatrix3::operator *= (const VEMatrix3& m) {
+	VEMatrix3 mat{ *this };
 	_11 = (mat._11 * m._11) + (mat._12 * m._21) + (mat._13 * m._31);
 	_12 = (mat._11 * m._12) + (mat._12 * m._22) + (mat._13 * m._32);
 	_13 = (mat._11 * m._13) + (mat._12 * m._23) + (mat._13 * m._33);
@@ -111,20 +111,20 @@ Matrix3& Matrix3::operator *= (const Matrix3& m) {
 	return *this;
 }
 
-Matrix3 Matrix3::TransposeMatrix() const {
+VEMatrix3 VEMatrix3::TransposeMatrix() const {
 	return { _11, _21, _31
 		   , _12, _22, _32
 		   , _13, _23, _33 };
 }
 
-Matrix3 Matrix3::InverseMatrix() const {
+VEMatrix3 VEMatrix3::InverseMatrix() const {
 	float determinant = Determinant();
 	// invertible matrix
 	if (determinant != 0.0f) {
 		// adjoint matrix / determinant
 		float detInv = 1.0f / determinant;
 
-		Matrix3 mat;
+		VEMatrix3 mat;
 		mat._11 = (_22 * _33 - _23 * _32) * detInv;
 		mat._12 = (_13 * _32 - _12 * _33) * detInv;
 		mat._13 = (_12 * _23 - _13 * _22) * detInv;
@@ -142,7 +142,7 @@ Matrix3 Matrix3::InverseMatrix() const {
 	}
 }
 
-float Matrix3::Determinant() const {
+float VEMatrix3::Determinant() const {
 	return
 		(_11 * _22 * _33) - (_11 * _23 * _32) - (_12 * _21 * _33) +
 		(_12 * _23 * _31) + (_13 * _21 * _32) - (_13 * _22 * _31);

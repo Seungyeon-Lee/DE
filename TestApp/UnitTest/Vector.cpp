@@ -1,13 +1,13 @@
 #include "gtest/gtest.h"
 #include "Helper.h"
 
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "VEVector2.h"
+#include "VEVector3.h"
+#include "VEVector4.h"
 
-#include "Matrix2.h"
-#include "Matrix3.h"
-#include "Matrix4.h"
+#include "VEMatrix2.h"
+#include "VEMatrix3.h"
+#include "VEMatrix4.h"
 
 TEST(Vector, Equal)
 {
@@ -19,9 +19,9 @@ TEST(Vector, Equal)
         EXPECT_EQ(true, a == b);
         EXPECT_EQ(false, a == c);
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, NotEqual)
@@ -34,9 +34,9 @@ TEST(Vector, NotEqual)
         EXPECT_EQ(false, a != b);
         EXPECT_EQ(true, a != c);
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, Add)
@@ -51,9 +51,9 @@ TEST(Vector, Add)
         a += b;
         EXPECT_EQ(r, a);
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, Sub)
@@ -68,9 +68,9 @@ TEST(Vector, Sub)
         a -= b;
         EXPECT_EQ(r, a);
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, ScalarMultiply)
@@ -85,9 +85,9 @@ TEST(Vector, ScalarMultiply)
         a *= s;
         EXPECT_EQ(r, a);
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, Dot)
@@ -105,17 +105,17 @@ TEST(Vector, Dot)
         }
         EXPECT_EQ(r, V::Dot(a, b));
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, Cross)
 {
-    Vector3 v1{ 1.f, 0.f, 0.f };
-    Vector3 v2{ 0.f, 1.f, 0.f };
-    Vector3 answer{0.f, 0.f, 1.f};
-    EXPECT_EQ(answer, Vector3::Cross(v1, v2));
+    VEVector3 v1{ 1.f, 0.f, 0.f };
+    VEVector3 v2{ 0.f, 1.f, 0.f };
+    VEVector3 answer{0.f, 0.f, 1.f};
+    EXPECT_EQ(answer, VEVector3::Cross(v1, v2));
 }
 
 TEST(Vector, MulMatrix)
@@ -138,9 +138,9 @@ TEST(Vector, MulMatrix)
         }
         EXPECT_EQ(r, v * m);
     };
-    body(Vector2(), Matrix2());
-    body(Vector3(), Matrix3());
-    body(Vector4(), Matrix4());
+    body(VEVector2(), VEMatrix2());
+    body(VEVector3(), VEMatrix3());
+    body(VEVector4(), VEMatrix4());
 }
 
 TEST(Vector, Length)
@@ -157,9 +157,9 @@ TEST(Vector, Length)
         }
         EXPECT_EQ(sqrtf(r), v.Length());
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, LengthSq)
@@ -176,9 +176,9 @@ TEST(Vector, LengthSq)
         }
         EXPECT_EQ(r, v.LengthSq());
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }
 
 TEST(Vector, Normalize)
@@ -202,7 +202,7 @@ TEST(Vector, Normalize)
 
         EXPECT_EQ(r, v.Normalize());
     };
-    body(Vector2());
-    body(Vector3());
-    body(Vector4());
+    body(VEVector2());
+    body(VEVector3());
+    body(VEVector4());
 }

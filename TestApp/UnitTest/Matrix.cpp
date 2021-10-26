@@ -1,9 +1,9 @@
 ﻿#include <algorithm>
 #include "gtest/gtest.h"
 #include "Helper.h"
-#include "Matrix2.h"
-#include "Matrix3.h"
-#include "Matrix4.h"
+#include "VEMatrix2.h"
+#include "VEMatrix3.h"
+#include "VEMatrix4.h"
 
 TEST(Matrix, Equal)
 {
@@ -15,9 +15,9 @@ TEST(Matrix, Equal)
         EXPECT_EQ(true, a == b);
         EXPECT_EQ(false, a == c);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, NotEqual)
@@ -30,9 +30,9 @@ TEST(Matrix, NotEqual)
         EXPECT_EQ(false, a != b);
         EXPECT_EQ(true, a != c);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Add)
@@ -47,9 +47,9 @@ TEST(Matrix, Add)
         a += b;
         EXPECT_EQ(r, a);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Sub)
@@ -64,9 +64,9 @@ TEST(Matrix, Sub)
         a -= b;
         EXPECT_EQ(r, a);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, ScalarMultiply)
@@ -81,9 +81,9 @@ TEST(Matrix, ScalarMultiply)
         a *= s;
         EXPECT_EQ(r, a);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Multiply)
@@ -111,9 +111,9 @@ TEST(Matrix, Multiply)
         m1 *= m2;
         EXPECT_EQ(r, m1);
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Transpose)
@@ -134,9 +134,9 @@ TEST(Matrix, Transpose)
 
         EXPECT_EQ(r, m.TransposeMatrix());
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Inverse)
@@ -157,9 +157,9 @@ TEST(Matrix, Inverse)
                                                                   1e-4f));
         }
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }
 
 TEST(Matrix, Determinant)
@@ -175,7 +175,7 @@ TEST(Matrix, Determinant)
                                                  1e-5f, 
                                                  1e-4f));
     };
-    body(Matrix2());
-    body(Matrix3());
-    body(Matrix4());
+    body(VEMatrix2());
+    body(VEMatrix3());
+    body(VEMatrix4());
 }

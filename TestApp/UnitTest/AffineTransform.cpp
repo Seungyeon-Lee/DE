@@ -1,10 +1,10 @@
 #include <algorithm>
 #include "gtest/gtest.h"
 #include "Helper.h"
-#include "Matrix3.h"
-#include "Matrix4.h"
-#include "AffineTransform2.h"
-#include "AffineTransform3.h"
+#include "VEMatrix3.h"
+#include "VEMatrix4.h"
+#include "VEAffineTransform2.h"
+#include "VEAffineTransform3.h"
 
 TEST(AffineTransform, Equal)
 {
@@ -20,8 +20,8 @@ TEST(AffineTransform, Equal)
         EXPECT_EQ(true, a2 == b2);
         EXPECT_EQ(false, a2 == c2);
     };
-    body(AffineTransform2(), Matrix3());
-    body(AffineTransform3(), Matrix4());
+    body(VEAffineTransform2(), VEMatrix3());
+    body(VEAffineTransform3(), VEMatrix4());
 }
 
 TEST(AffineTransform, NotEqual)
@@ -38,8 +38,8 @@ TEST(AffineTransform, NotEqual)
         EXPECT_EQ(false, a2 != b2);
         EXPECT_EQ(true, a2 != c2);
     };
-    body(AffineTransform2(), Matrix3());
-    body(AffineTransform3(), Matrix4());
+    body(VEAffineTransform2(), VEMatrix3());
+    body(VEAffineTransform3(), VEMatrix4());
 }
 
 TEST(AffineTransform, Translate)
@@ -62,6 +62,6 @@ TEST(AffineTransform, Translate)
         }
         EXPECT_EQ(r, at);
     };
-    body(AffineTransform2(), Matrix3(), Vector2());
-    body(AffineTransform3(), Matrix4(), Vector3());
+    body(VEAffineTransform2(), VEMatrix3(), VEVector2());
+    body(VEAffineTransform3(), VEMatrix4(), VEVector3());
 }
