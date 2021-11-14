@@ -71,6 +71,11 @@ VEVector3& VEVector3::operator *= (float f) {
 	return *this;
 }
 
+VEVector3 VEVector3::operator - () const {
+	return { -x, -y, -z };
+}
+
+
 float VEVector3::Length() const {
 	return sqrtf(x * x + y * y + z * z);
 }

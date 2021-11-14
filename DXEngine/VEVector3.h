@@ -24,6 +24,7 @@ public:
 
 	VEVector3 operator * (const VEMatrix3&) const;
 	VEVector3& operator *= (const VEMatrix3&);
+	VEVector3 operator - () const;
 
 	float Length() const;
 	float LengthSq() const;
