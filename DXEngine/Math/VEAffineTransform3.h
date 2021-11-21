@@ -1,5 +1,5 @@
 #pragma once
-#include "DXEngine.h"
+#include "../DXEngine.h"
 #include "VEMatrix3.h"
 #include "VEVector3.h"
 

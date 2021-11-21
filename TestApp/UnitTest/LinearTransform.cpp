@@ -1,10 +1,10 @@
 ﻿#include <algorithm>
 #include "gtest/gtest.h"
 #include "Helper.h"
-#include "VEVector2.h"
-#include "VEVector3.h"
-#include "VELinearTransform2.h"
-#include "VELinearTransform3.h"
+#include "Math/VEVector2.h"
+#include "Math/VEVector3.h"
+#include "Math/VELinearTransform2.h"
+#include "Math/VELinearTransform3.h"
 
 TEST(LinearTransform, Equal)
 {

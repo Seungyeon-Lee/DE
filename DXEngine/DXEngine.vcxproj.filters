@@ -15,34 +15,46 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="VEAffineTransform2.cpp">
+    <ClCompile Include="VEWindow.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEAffineTransform3.cpp">
+    <ClCompile Include="Math\VEAffineTransform2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VELinearTransform2.cpp">
+    <ClCompile Include="Math\VEAffineTransform3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VELinearTransform3.cpp">
+    <ClCompile Include="Math\VELinearTransform2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEMatrix2.cpp">
+    <ClCompile Include="Math\VELinearTransform3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEMatrix3.cpp">
+    <ClCompile Include="Math\VEMatrix2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEMatrix4.cpp">
+    <ClCompile Include="Math\VEMatrix3.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEVector2.cpp">
+    <ClCompile Include="Math\VEMatrix4.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEVector3.cpp">
+    <ClCompile Include="Math\VEVector2.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="VEVector4.cpp">
+    <ClCompile Include="Math\VEVector3.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEVector4.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VECamera.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VEColor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VELinearColor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,34 +62,46 @@
     <ClInclude Include="DXEngine.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEAffineTransform2.h">
+    <ClInclude Include="VEWindow.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEAffineTransform3.h">
+    <ClInclude Include="Math\VEAffineTransform2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VELinearTransform2.h">
+    <ClInclude Include="Math\VEAffineTransform3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VELinearTransform3.h">
+    <ClInclude Include="Math\VELinearTransform2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEMatrix2.h">
+    <ClInclude Include="Math\VELinearTransform3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEMatrix3.h">
+    <ClInclude Include="Math\VEMatrix2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEMatrix4.h">
+    <ClInclude Include="Math\VEMatrix3.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEVector2.h">
+    <ClInclude Include="Math\VEMatrix4.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEVector3.h">
+    <ClInclude Include="Math\VEVector2.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="VEVector4.h">
+    <ClInclude Include="Math\VEVector3.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEVector4.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VECamera.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEColor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VELinearColor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

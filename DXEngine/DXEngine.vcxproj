@@ -179,29 +179,37 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="VEAffineTransform2.cpp" />
-    <ClCompile Include="VEAffineTransform3.cpp" />
-    <ClCompile Include="VELinearTransform2.cpp" />
-    <ClCompile Include="VELinearTransform3.cpp" />
-    <ClCompile Include="VEMatrix2.cpp" />
-    <ClCompile Include="VEMatrix3.cpp" />
-    <ClCompile Include="VEMatrix4.cpp" />
-    <ClCompile Include="VEVector2.cpp" />
-    <ClCompile Include="VEVector3.cpp" />
-    <ClCompile Include="VEVector4.cpp" />
+    <ClCompile Include="Math\VEAffineTransform2.cpp" />
+    <ClCompile Include="Math\VEAffineTransform3.cpp" />
+    <ClCompile Include="Math\VELinearTransform2.cpp" />
+    <ClCompile Include="Math\VELinearTransform3.cpp" />
+    <ClCompile Include="Math\VEMatrix2.cpp" />
+    <ClCompile Include="Math\VEMatrix3.cpp" />
+    <ClCompile Include="Math\VEMatrix4.cpp" />
+    <ClCompile Include="Math\VEVector2.cpp" />
+    <ClCompile Include="Math\VEVector3.cpp" />
+    <ClCompile Include="Math\VEVector4.cpp" />
+    <ClCompile Include="Graphics\VECamera.cpp" />
+    <ClCompile Include="Graphics\VEColor.cpp" />
+    <ClCompile Include="Graphics\VELinearColor.cpp" />
+    <ClCompile Include="VEWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DXEngine.h" />
-    <ClInclude Include="VEAffineTransform2.h" />
-    <ClInclude Include="VEAffineTransform3.h" />
-    <ClInclude Include="VELinearTransform2.h" />
-    <ClInclude Include="VELinearTransform3.h" />
-    <ClInclude Include="VEMatrix2.h" />
-    <ClInclude Include="VEMatrix3.h" />
-    <ClInclude Include="VEMatrix4.h" />
-    <ClInclude Include="VEVector2.h" />
-    <ClInclude Include="VEVector3.h" />
-    <ClInclude Include="VEVector4.h" />
+    <ClInclude Include="Math\VEAffineTransform2.h" />
+    <ClInclude Include="Math\VEAffineTransform3.h" />
+    <ClInclude Include="Math\VELinearTransform2.h" />
+    <ClInclude Include="Math\VELinearTransform3.h" />
+    <ClInclude Include="Math\VEMatrix2.h" />
+    <ClInclude Include="Math\VEMatrix3.h" />
+    <ClInclude Include="Math\VEMatrix4.h" />
+    <ClInclude Include="Math\VEVector2.h" />
+    <ClInclude Include="Math\VEVector3.h" />
+    <ClInclude Include="Math\VEVector4.h" />
+    <ClInclude Include="Graphics\VECamera.h" />
+    <ClInclude Include="Graphics\VEColor.h" />
+    <ClInclude Include="Graphics\VELinearColor.h" />
+    <ClInclude Include="VEWindow.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

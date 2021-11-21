@@ -1,13 +1,13 @@
 #include "gtest/gtest.h"
 #include "Helper.h"
 
-#include "VEVector2.h"
-#include "VEVector3.h"
-#include "VEVector4.h"
+#include "Math/VEVector2.h"
+#include "Math/VEVector3.h"
+#include "Math/VEVector4.h"
 
-#include "VEMatrix2.h"
-#include "VEMatrix3.h"
-#include "VEMatrix4.h"
+#include "Math/VEMatrix2.h"
+#include "Math/VEMatrix3.h"
+#include "Math/VEMatrix4.h"
 
 TEST(Vector, Equal)
 {

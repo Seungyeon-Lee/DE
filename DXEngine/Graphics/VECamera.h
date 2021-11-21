@@ -1,7 +1,7 @@
 #pragma once
-#include "DXEngine.h"
-#include "VEVector3.h"
-#include "VEMatrix4.h" 
+#include "../DXEngine.h"
+#include "../Math/VEVector3.h"
+#include "../Math/VEMatrix4.h" 
 
 class DX_API VECamera
 {

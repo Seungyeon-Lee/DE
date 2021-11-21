@@ -1,5 +1,5 @@
 #pragma once
-#include "DXEngine.h"
+#include "../DXEngine.h"
 
 class VEMatrix3;
 class DX_API VEVector3

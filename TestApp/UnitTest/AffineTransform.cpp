@@ -1,10 +1,10 @@
 #include <algorithm>
 #include "gtest/gtest.h"
 #include "Helper.h"
-#include "VEMatrix3.h"
-#include "VEMatrix4.h"
-#include "VEAffineTransform2.h"
-#include "VEAffineTransform3.h"
+#include "Math/VEMatrix3.h"
+#include "Math/VEMatrix4.h"
+#include "Math/VEAffineTransform2.h"
+#include "Math/VEAffineTransform3.h"
 
 TEST(AffineTransform, Equal)
 {
