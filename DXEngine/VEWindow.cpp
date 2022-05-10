@@ -65,22 +65,6 @@ void VEWindow::Destroy()
     }
 }
 
-float VEWindow::AspectRatio() const
-{
-    return static_cast<float>(width) / static_cast<float>(height);
-}
-
-void VEWindow::AddResizeEventListener(EventListener listener, ResizeEventCallback callback)
-{
-    listeners.emplace(listener, callback);
-}
-
-void VEWindow::RemoveResizeEventListener(EventListener listener)
-{
-    listeners.erase(listener);
-}
-
-
 LRESULT VEWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     VEWindow* window = (VEWindow*)::GetWindowLongPtrW(hWnd, GWLP_USERDATA);
@@ -96,12 +80,6 @@ LRESULT VEWindow::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
             {
                 window->width = width;
                 window->height = height;
-
-                // broadcast.
-                for (const auto& [key, value] : window->listeners)
-                {
-                    value(window->width, window->height);
-                }
             }
             return 0;
         }
