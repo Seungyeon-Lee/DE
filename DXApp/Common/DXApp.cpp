@@ -40,31 +40,7 @@ HWND DXApp::MainWnd()const
 
 int DXApp::Run()
 {
-	MSG msg = {0};
-
-	while(msg.message != WM_QUIT)
-	{
-		if(PeekMessage( &msg, 0, 0, 0, PM_REMOVE ))
-		{
-            TranslateMessage( &msg );
-            DispatchMessage( &msg );
-		}
-		else
-        {	
-
-			if( !mAppPaused )
-			{
-				Update();	
-                Draw();
-			}
-			else
-			{
-				Sleep(100);
-			}
-        }
-    }
-
-	return (int)msg.wParam;
+	return 0;
 }
 
 bool DXApp::Initialize()

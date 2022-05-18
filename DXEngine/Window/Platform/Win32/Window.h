@@ -1,5 +1,5 @@
-#pragma once
-#include "DXEngine.h"
+//#pragma once
+//#include "../../../DXEngine.h"
 //#include <Windows.h>
 //#include <functional>
 //#include <map>
