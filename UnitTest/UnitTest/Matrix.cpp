@@ -5,6 +5,8 @@
 #include "Math/VEMatrix3.h"
 #include "Math/VEMatrix4.h"
 
+using namespace Venus;
+
 TEST(Matrix, Equal)
 {
     auto body = [](auto m)

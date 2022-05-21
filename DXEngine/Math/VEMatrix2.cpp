@@ -1,6 +1,8 @@
 #include "VEMatrix2.h"
 #include "VEVector2.h"
 
+using namespace Venus;
+
 VEMatrix2::VEMatrix2()
 	: _11(1.0f), _12(0.0f)
 	, _21(0.0f), _22(1.0f) { }

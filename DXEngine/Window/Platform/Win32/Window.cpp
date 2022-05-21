@@ -1,7 +1,8 @@
 #include "Window.h"
-#define WINDOW_CLASS_NAME L"JFWindowClass"
 
-namespace Platform
+using namespace Venus;
+
+namespace Venus::Platform
 {
     VEWindow* CreatePlatformWindow()
     {

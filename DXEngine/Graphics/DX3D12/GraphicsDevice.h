@@ -5,16 +5,19 @@
 #include <d3dcompiler.h>
 #include "d3dx12.h"
 
-class GraphicsDevice : public VEGraphicsDevice
+namespace Venus
 {
-public:
-	GraphicsDevice();
-	~GraphicsDevice() noexcept = default;
-		
-	ID3D12Device* Device() const { return md3dDevice.Get(); }
+	class GraphicsDevice final : public VEGraphicsDevice
+	{
+	public:
+		GraphicsDevice();
+		~GraphicsDevice() noexcept = default;
 
-private:
-	Microsoft::WRL::ComPtr<ID3D12Device> md3dDevice;
-	Microsoft::WRL::ComPtr<IDXGIFactory4> mdxgiFactory;
-};
+		ID3D12Device* Device() const { return md3dDevice.Get(); }
+
+	private:
+		Microsoft::WRL::ComPtr<ID3D12Device> md3dDevice;
+		Microsoft::WRL::ComPtr<IDXGIFactory4> mdxgiFactory;
+	};
+}
 

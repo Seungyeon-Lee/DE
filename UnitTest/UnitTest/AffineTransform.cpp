@@ -6,6 +6,8 @@
 #include "Math/VEAffineTransform2.h"
 #include "Math/VEAffineTransform3.h"
 
+using namespace Venus;
+
 TEST(AffineTransform, Equal)
 {
     auto body = [](auto at, auto m)

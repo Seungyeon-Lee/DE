@@ -2,6 +2,8 @@
 #include "ApplicationContext.h"
 #include <Windows.h>
 
+using namespace Venus;
+
 int ApplicationContext::MessageLoop()
 {
 	MSG msg = { 0 };

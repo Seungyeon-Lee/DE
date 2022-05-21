@@ -9,6 +9,8 @@
 #include "Math/VEMatrix3.h"
 #include "Math/VEMatrix4.h"
 
+using namespace Venus;
+
 TEST(Vector, Equal)
 {
     auto body = [](auto v)

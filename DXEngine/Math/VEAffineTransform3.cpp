@@ -3,6 +3,8 @@
 #include "VEMatrix4.h"
 #include <math.h>
 
+using namespace Venus;
+
 VEAffineTransform3::VEAffineTransform3()
 	: matrix3()
 	, translation() {}

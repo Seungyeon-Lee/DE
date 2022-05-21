@@ -1,7 +1,7 @@
 #pragma once
 #include "VEGraphicsDevice.h"
 
-namespace GraphicsAPI
+namespace Venus::GraphicsAPI
 {
 #if defined(_WIN32)
 	namespace Direct3D

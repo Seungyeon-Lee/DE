@@ -6,6 +6,8 @@
 #include "Math/VELinearTransform2.h"
 #include "Math/VELinearTransform3.h"
 
+using namespace Venus;
+
 TEST(LinearTransform, Equal)
 {
     auto body = [](auto lt, auto m)

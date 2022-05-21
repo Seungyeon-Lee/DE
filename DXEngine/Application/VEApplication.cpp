@@ -1,6 +1,8 @@
 #include "VEApplication.h"
 #include "Platform/ApplicationPlatform.h"
 
+using namespace Venus;
+
 VEApplication::VEApplication()
 	:context(nullptr)
 {

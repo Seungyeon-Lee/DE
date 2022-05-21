@@ -2,6 +2,8 @@
 #include "VEMatrix2.h"
 #include <math.h>
 
+using namespace Venus;
+
 VEVector2::VEVector2() : x(0.0f), y(0.0f) {}
 
 VEVector2::VEVector2(float x, float y) : x(x), y(y) {}

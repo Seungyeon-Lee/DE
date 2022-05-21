@@ -1,7 +1,7 @@
 #pragma once
 #include "../VEWindow.h"
 
-namespace Platform
+namespace Venus::Platform
 {
 	VEWindow* CreatePlatformWindow();
 }

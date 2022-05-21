@@ -1,11 +1,14 @@
 #pragma once
-#include "../DXEngine.h"
+#include "../Venus.h"
 
-class DX_API VEApplicationContextInterface
+namespace Venus
 {
-public:
-	VEApplicationContextInterface() = default;
-	virtual ~VEApplicationContextInterface() = default;
+	class VE_API VEApplicationContextInterface
+	{
+	public:
+		VEApplicationContextInterface() = default;
+		virtual ~VEApplicationContextInterface() = default;
 
-	virtual int MessageLoop() = 0;
-};
+		virtual int MessageLoop() = 0;
+	};
+}

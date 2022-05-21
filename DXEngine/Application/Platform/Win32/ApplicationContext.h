@@ -1,14 +1,17 @@
 #pragma once
 #if defined(_WIN32)
-#include "../../../DXEngine.h"
+#include "../../../Venus.h"
 #include "../../VEApplicationContextInterface.h"
 
-class ApplicationContext : public VEApplicationContextInterface
+namespace Venus
 {
-public:
-	ApplicationContext() = default;
-	~ApplicationContext() = default;
+	class ApplicationContext : public VEApplicationContextInterface
+	{
+	public:
+		ApplicationContext() = default;
+		~ApplicationContext() = default;
 
-	int MessageLoop() override;
-};
+		int MessageLoop() override;
+	};
+}
 #endif

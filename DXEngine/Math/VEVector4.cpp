@@ -2,6 +2,8 @@
 #include "VEMatrix4.h"
 #include <math.h>
 
+using namespace Venus;
+
 VEVector4::VEVector4()
 	: x(0.0f), y(0.0f), z(0.0f), w(0.0f) {
 }

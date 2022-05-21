@@ -1,6 +1,8 @@
 #include "VEMatrix4.h"
 #include "VEVector4.h"
 
+using namespace Venus;
+
 VEMatrix4::VEMatrix4()
 	: _11(1.0f), _12(0.0f), _13(0.0f), _14(0.0f)
 	, _21(0.0f), _22(1.0f), _23(0.0f), _24(0.0f)

@@ -1,5 +1,7 @@
 #include "GraphicsDevice.h"
 
+using namespace Venus;
+
 namespace GraphicsAPI::Direct3D
 {
 	VEGraphicsDevice* CreateGraphicsDevice()
@@ -15,7 +17,7 @@ GraphicsDevice::GraphicsDevice()
     hardwareResult = CreateDXGIFactory1(IID_PPV_ARGS(&mdxgiFactory));
 
 
-    // 그래픽 카드에 대한 정보들을 roop 돈다. (책 코드에는 roop 사용 없이 가장 첫번째 그래픽 카드로 설정)
+    // 그래픽 카드에 대한 정보들을 roop 돈다. (책 코드에는 loop 사용 없이 가장 첫 번째 그래픽 카드로 설정)
     // Try to create hardware device.
     hardwareResult = D3D12CreateDevice(
         nullptr,             // default adapter

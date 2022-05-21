@@ -2,6 +2,8 @@
 #include "VEVector2.h"
 #include <math.h>
 
+using namespace Venus;
+
 VELinearTransform2::VELinearTransform2()
 	: matrix2() {}
 

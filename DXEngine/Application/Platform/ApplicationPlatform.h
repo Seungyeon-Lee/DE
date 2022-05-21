@@ -1,9 +1,8 @@
 #pragma once
 #include "../VEApplicationContextInterface.h"
-
 #include "Win32/ApplicationContext.h"
 
-VEApplicationContextInterface* CreateApplicationContext()
+Venus::VEApplicationContextInterface* CreateApplicationContext()
 {
-	return new ApplicationContext();
+	return new Venus::ApplicationContext();
 }

@@ -1,6 +1,8 @@
 #include "VEMatrix3.h"
 #include "VEVector3.h"
 
+using namespace Venus;
+
 VEMatrix3::VEMatrix3()
 	: _11(1.0f), _12(0.0f), _13(0.0f)
 	, _21(0.0f), _22(1.0f), _23(0.0f)
