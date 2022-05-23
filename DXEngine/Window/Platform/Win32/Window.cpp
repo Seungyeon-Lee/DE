@@ -98,8 +98,8 @@ LRESULT Window::WindowProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
         {
         case WM_SIZE:
         {
-            size_t width = LOWORD(lParam);
-            size_t height = HIWORD(lParam);
+            uint32_t width = LOWORD(lParam);
+            uint32_t height = HIWORD(lParam);
             if (window->width != width || window->height != height)
             {
                 window->width = width;

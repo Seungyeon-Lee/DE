@@ -18,8 +18,8 @@ namespace Venus
 
 		void* Handle() const override { return handle; }
 
-		size_t Width() const override { return width; }
-		size_t Height() const override { return height; }
+		uint32_t Width() const override { return width; }
+		uint32_t Height() const override { return height; }
 		float AspectRatio() const override;
 
 	protected:
@@ -28,7 +28,7 @@ namespace Venus
 	private:
 		HWND handle;
 
-		size_t width;
-		size_t height;
+		uint32_t width;
+		uint32_t height;
 	};
 }

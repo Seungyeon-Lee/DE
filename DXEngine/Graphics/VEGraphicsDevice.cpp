@@ -1,5 +1,5 @@
 #include "VEGraphicsDevice.h"
-#include "GraphicsAPI.h"
+#include "Private/GraphicsAPI.h"
 
 using namespace Venus;
 VEGraphicsDevice* VEGraphicsDevice::CreateGraphicsDevice() {

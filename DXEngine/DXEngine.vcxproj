@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -181,7 +181,9 @@
   <ItemGroup>
     <ClCompile Include="Application\Platform\Win32\ApplicationContext.cpp" />
     <ClCompile Include="Application\VEApplication.cpp" />
-    <ClCompile Include="Graphics\DX3D12\GraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\CommandQueue.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\CommandList.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\GraphicsDevice.cpp" />
     <ClCompile Include="Graphics\VEGraphicsDevice.cpp" />
     <ClCompile Include="Math\VEAffineTransform2.cpp" />
     <ClCompile Include="Math\VEAffineTransform3.cpp" />
@@ -193,6 +195,7 @@
     <ClCompile Include="Math\VEVector2.cpp" />
     <ClCompile Include="Math\VEVector3.cpp" />
     <ClCompile Include="Math\VEVector4.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\SwapChain.cpp" />
     <ClCompile Include="Window\VEWindow.cpp" />
     <ClCompile Include="Window\Platform\Win32\Window.cpp" />
   </ItemGroup>
@@ -201,10 +204,16 @@
     <ClInclude Include="Application\Platform\Win32\ApplicationContext.h" />
     <ClInclude Include="Application\VEApplication.h" />
     <ClInclude Include="Application\VEApplicationContextInterface.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\CommandQueue.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\CommandList.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\DXInclude.h" />
+    <ClInclude Include="Graphics\VECommandList.h" />
+    <ClInclude Include="Graphics\VECommandQueue.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\SwapChain.h" />
     <ClInclude Include="Venus.h" />
-    <ClInclude Include="Graphics\DX3D12\d3dx12.h" />
-    <ClInclude Include="Graphics\DX3D12\GraphicsDevice.h" />
-    <ClInclude Include="Graphics\GraphicsAPI.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\d3dx12.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h" />
+    <ClInclude Include="Graphics\Private\GraphicsAPI.h" />
     <ClInclude Include="Graphics\VEGraphicsDevice.h" />
     <ClInclude Include="Math\VEAffineTransform2.h" />
     <ClInclude Include="Math\VEAffineTransform3.h" />
@@ -216,6 +225,7 @@
     <ClInclude Include="Math\VEVector2.h" />
     <ClInclude Include="Math\VEVector3.h" />
     <ClInclude Include="Math\VEVector4.h" />
+    <ClInclude Include="Graphics\VESwapChain.h" />
     <ClInclude Include="Window\Platform\WindowPlatform.h" />
     <ClInclude Include="Window\VEWindow.h" />
     <ClInclude Include="Window\Platform\Win32\Window.h" />
