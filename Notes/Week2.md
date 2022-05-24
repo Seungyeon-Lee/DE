@@ -1,4 +1,5 @@
-[Notion Link](https://www.notion.so/2-de91b25e2d604c55aaa0b9e9ae8ecb8d)
+# 2주차 (21. 10. 12)
+[Notion Link](https://www.notion.so/2-21-10-12-87eac3a5509b43ad9ae122ccdb40969a)
 
 ## Code Review
 
