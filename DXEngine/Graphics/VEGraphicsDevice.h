@@ -1,5 +1,7 @@
 #pragma once
 #include "../Venus.h"
+#include "VECommandQueue.h"
+#include "VECommandList.h"
 
 namespace Venus
 {
@@ -7,6 +9,9 @@ namespace Venus
 	{
 	public:
 		virtual ~VEGraphicsDevice() noexcept = default;
+
+		virtual VECommandQueue* CreateCommandQueue() = 0;
+		virtual VECommandList* CreateCommandList() = 0;
 
 		static VEGraphicsDevice* CreateGraphicsDevice();
 

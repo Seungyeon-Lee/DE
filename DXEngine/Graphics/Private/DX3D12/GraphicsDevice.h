@@ -10,11 +10,15 @@ namespace Venus
 		GraphicsDevice();
 		~GraphicsDevice() noexcept = default;
 
-		ID3D12Device* Device() const { return md3dDevice.Get(); }
+		VECommandQueue* CreateCommandQueue() override;
+		VECommandList* CreateCommandList() override;
+
+		ID3D12Device* Device() const { return device.Get(); }
+		ComPtr<IDXGIFactory4> Factory() const { return factory; }
 
 	private:
-		ComPtr<ID3D12Device> md3dDevice;
-		ComPtr<IDXGIFactory4> mdxgiFactory;
+		ComPtr<ID3D12Device> device;
+		ComPtr<IDXGIFactory4> factory;
 	};
 }
 

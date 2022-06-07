@@ -8,6 +8,7 @@ namespace Venus
 	class CommandQueue final : public VECommandQueue
 	{
     public:
+        // 원시 데이터를 받아서 무언가를 할 수 있게 된다. (helpclass 같은 느낌)
         CommandQueue(GraphicsDevice*, ID3D12CommandQueue*);
         ~CommandQueue() noexcept = default;
 
