@@ -1,6 +1,7 @@
 #pragma once
 #include "../../VESwapChain.h"
 #include "DXInclude.h"
+#include "../../../Common/VEObject.h"
 #include "GraphicsDevice.h"
 
 namespace Venus
@@ -28,6 +29,6 @@ namespace Venus
 		mutable ComPtr<ID3D12Resource> depthStencilBuffer;
 
 		ComPtr<IDXGISwapChain3> swapChain;
-		GraphicsDevice* device;
+		VEObject<GraphicsDevice> device;
 	};
 }

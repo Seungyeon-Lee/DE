@@ -1,9 +1,10 @@
 #pragma once
-#include "../Venus.h"
+#include "../VEInclude.h"
+#include "../Common/VEObject.h"
 
 namespace Venus
 {
-	class VE_API VEWindow
+	class VE_API VEWindow : public VERefCounter
 	{
 	public:
 		virtual ~VEWindow() noexcept = default;

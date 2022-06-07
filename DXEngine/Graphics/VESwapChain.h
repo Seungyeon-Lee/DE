@@ -1,11 +1,12 @@
 #pragma once
-#include "../Venus.h"
+#include "../VEInclude.h"
+#include "../Common/VEObject.h"
 
 namespace Venus
 {
 	class VEWindow;
 	
-	class VE_API VESwapChain
+	class VE_API VESwapChain : public VERefCounter
 	{
 	public:
 		enum { SwapChainBufferCount = 2 };

@@ -1,17 +1,18 @@
 #pragma once
-#include "../Venus.h"
+#include "../VEInclude.h"
+#include "../Common/VEObject.h"
 #include "VECommandQueue.h"
 #include "VECommandList.h"
 
 namespace Venus
 {
-	class VE_API VEGraphicsDevice
+	class VE_API VEGraphicsDevice : public VERefCounter
 	{
 	public:
 		virtual ~VEGraphicsDevice() noexcept = default;
 
-		virtual VECommandQueue* CreateCommandQueue() = 0;
-		virtual VECommandList* CreateCommandList() = 0;
+		virtual VEObject<VECommandQueue> CreateCommandQueue() = 0;
+		virtual VEObject<VECommandList> CreateCommandList() = 0;
 
 		static VEGraphicsDevice* CreateGraphicsDevice();
 

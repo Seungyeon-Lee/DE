@@ -9,7 +9,7 @@ CommandQueue::CommandQueue(GraphicsDevice* device, ID3D12CommandQueue* queue)
 {
 }
 
-VESwapChain* CommandQueue::CreateSwapChain(const VEWindow* window)
+VEObject<VESwapChain> CommandQueue::CreateSwapChain(const VEWindow* window)
 {
 	return new SwapChain(device, this, window);
 }

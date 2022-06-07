@@ -1,9 +1,10 @@
 #pragma once
-#include "../Venus.h"
+#include "../VEInclude.h"
+#include "../Common/VEObject.h"
 
 namespace Venus
 {
-	class VE_API VECommandList
+	class VE_API VECommandList : public VERefCounter
 	{
 	public:
 		VECommandList() = default;

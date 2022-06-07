@@ -41,7 +41,7 @@ GraphicsDevice::GraphicsDevice()
     }
 }
 
-VECommandQueue* GraphicsDevice::CreateCommandQueue()
+VEObject<VECommandQueue> GraphicsDevice::CreateCommandQueue()
 {
     ComPtr<ID3D12CommandQueue> queue;
     D3D12_COMMAND_QUEUE_DESC queueDesc = {};
@@ -52,7 +52,7 @@ VECommandQueue* GraphicsDevice::CreateCommandQueue()
     return new CommandQueue(this, queue.Get());
 }
 
-VECommandList* GraphicsDevice::CreateCommandList()
+VEObject<VECommandList> GraphicsDevice::CreateCommandList()
 {
     ComPtr<ID3D12CommandAllocator> commandAllocator;
 

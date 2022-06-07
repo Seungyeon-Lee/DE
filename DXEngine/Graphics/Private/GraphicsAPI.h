@@ -1,7 +1,7 @@
 #pragma once
 #include "../VEGraphicsDevice.h"
 
-namespace Venus::GraphicsAPI
+namespace Venus::Private
 {
 #if defined(_WIN32)
 	namespace Direct3D
@@ -12,11 +12,6 @@ namespace Venus::GraphicsAPI
 
 	VEGraphicsDevice* CreateGraphicsDevice()
 	{
-#if defined(_WIN32)
 		return Direct3D::CreateGraphicsDevice();
-#else
-		class Dummy : public VEGraphicsDevice { };
-		return new Dummy();
-#endif
 	}
 }

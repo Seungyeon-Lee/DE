@@ -12,7 +12,7 @@ namespace Venus
         CommandQueue(GraphicsDevice*, ID3D12CommandQueue*);
         ~CommandQueue() noexcept = default;
 
-        VESwapChain* CreateSwapChain(const VEWindow*) override;
+        VEObject<VESwapChain> CreateSwapChain(const VEWindow*) override;
 
         ID3D12CommandQueue* Queue() const { return queue.Get(); }
 

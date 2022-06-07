@@ -142,7 +142,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -160,7 +160,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp20</LanguageStandard>
       <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;Libs/googletest/include;../ThirdParty/googletest/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
@@ -172,11 +172,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Application\Application.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="UnitTest\AffineTransform.cpp" />
-    <ClCompile Include="UnitTest\LinearTransform.cpp" />
-    <ClCompile Include="UnitTest\Matrix.cpp" />
-    <ClCompile Include="UnitTest\Vector.cpp" />
+    <ClCompile Include="Math\AffineTransform.cpp" />
+    <ClCompile Include="Math\LinearTransform.cpp" />
+    <ClCompile Include="Math\Matrix.cpp" />
+    <ClCompile Include="Math\Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DXEngine\DXEngine.vcxproj">
@@ -187,7 +188,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="UnitTest\Helper.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Math\Helper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UnitTest.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
