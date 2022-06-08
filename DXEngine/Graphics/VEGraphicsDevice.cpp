@@ -3,6 +3,8 @@
 #include "Private/DX3D12/GraphicsDevice.h"
 
 using namespace Venus;
-VEGraphicsDevice* VEGraphicsDevice::CreateGraphicsDevice() {
+
+VEGraphicsDevice* VEGraphicsDevice::CreateGraphicsDevice() 
+{
 	return Venus::Private::CreateGraphicsDevice();
 }

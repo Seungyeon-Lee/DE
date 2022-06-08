@@ -4,7 +4,7 @@
 
 using namespace Venus;
 
-namespace GraphicsAPI::Direct3D
+namespace Venus::Private::Direct3D
 {
 	VEGraphicsDevice* CreateGraphicsDevice()
 	{
@@ -18,8 +18,7 @@ GraphicsDevice::GraphicsDevice()
     // 먼저 Factory를 만든다. 넘버링이 올라갈 수록 기능을 더 제공해준다.
     hardwareResult = CreateDXGIFactory1(IID_PPV_ARGS(&factory));
 
-
-    // 그래픽 카드에 대한 정보들을 roop 돈다. (책 코드에는 loop 사용 없이 가장 첫 번째 그래픽 카드로 설정)
+    // 그래픽 카드에 대한 정보들을 loop 돈다. (책 코드에는 loop 사용 없이 가장 첫 번째 그래픽 카드로 설정)
     // Try to create hardware device.
     hardwareResult = D3D12CreateDevice(
         nullptr,             // default adapter
