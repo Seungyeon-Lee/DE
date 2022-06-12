@@ -21,6 +21,8 @@ public:
 		commandQueue = graphicsDevice->CreateCommandQueue();
 		commandList = graphicsDevice->CreateCommandList();
 		swapChain = commandQueue->CreateSwapChain(window);
+
+		vertexBuffer = graphicsDevice->CreateGPUBuffer(50000, VEGPUBuffer::CPUCacheMode::UPLOAD);
 	}
 
 	void OnTerminate() override
@@ -33,6 +35,7 @@ private:
 	VEObject<VECommandQueue> commandQueue;
 	VEObject<VECommandList> commandList;
 	VEObject<VESwapChain> swapChain;
+	VEObject<VEGPUBuffer> vertexBuffer;
 };
 
 TEST(Application, Init)
