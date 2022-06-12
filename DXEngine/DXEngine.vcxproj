@@ -185,6 +185,7 @@
     <ClCompile Include="Application\VEApplication.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\CommandQueue.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\CommandList.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\DXInclude.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\GraphicsDevice.cpp" />
     <ClCompile Include="Graphics\VEGraphicsDevice.cpp" />
     <ClCompile Include="Math\VEAffineTransform2.cpp" />

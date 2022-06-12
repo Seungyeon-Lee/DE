@@ -9,6 +9,10 @@
 #include <dxgidebug.h>
 #endif
 
+#pragma comment(lib,"d3dcompiler.lib")
+#pragma comment(lib, "D3D12.lib")
+#pragma comment(lib, "dxgi.lib")
+
 using namespace Microsoft::WRL;
 
 class DxException
