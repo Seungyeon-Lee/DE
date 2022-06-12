@@ -2,15 +2,16 @@
 #include "CommandQueue.h"
 #include "CommandList.h"
 
-using namespace Venus;
-
-namespace Venus::Private::Direct3D
+namespace Venus::Private::Direct3D12
 {
 	VEGraphicsDevice* CreateGraphicsDevice()
 	{
 		return new GraphicsDevice();
 	}
 }
+
+using namespace Venus;
+using namespace Venus::Private::Direct3D12;
 
 GraphicsDevice::GraphicsDevice()
 {

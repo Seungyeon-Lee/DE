@@ -3,6 +3,7 @@
 #include "CommandQueue.h"
 
 using namespace Venus;
+using namespace Venus::Private::Direct3D12;
 
 SwapChain::SwapChain(GraphicsDevice* device, CommandQueue* queue, const VEWindow* window)
     : width(window->Width())

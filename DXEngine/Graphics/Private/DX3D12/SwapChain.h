@@ -7,28 +7,32 @@
 namespace Venus
 {
 	class VEWindow;
-	class CommandQueue;
 
-	class SwapChain final : public VESwapChain
+	namespace Private::Direct3D12
 	{
-	public:
-		SwapChain(GraphicsDevice*, CommandQueue*, const VEWindow*);
-		~SwapChain() noexcept = default;
+		class CommandQueue;
 
-		uint32_t Width() override { return width; }
-		uint32_t Height() override { return height; }
+		class SwapChain final : public VESwapChain
+		{
+		public:
+			SwapChain(GraphicsDevice*, CommandQueue*, const VEWindow*);
+			~SwapChain() noexcept = default;
 
-		void Resize(uint32_t width, uint32_t height) override;
+			uint32_t Width() override { return width; }
+			uint32_t Height() override { return height; }
 
-	private:
-		uint32_t width;
-		uint32_t height;
+			void Resize(uint32_t width, uint32_t height) override;
 
-		UINT currBackBuffer;
-		mutable ComPtr<ID3D12Resource> swapChainBuffer[SwapChainBufferCount];
-		mutable ComPtr<ID3D12Resource> depthStencilBuffer;
+		private:
+			uint32_t width;
+			uint32_t height;
 
-		ComPtr<IDXGISwapChain3> swapChain;
-		VEObject<GraphicsDevice> device;
-	};
+			UINT currBackBuffer;
+			mutable ComPtr<ID3D12Resource> swapChainBuffer[SwapChainBufferCount];
+			mutable ComPtr<ID3D12Resource> depthStencilBuffer;
+
+			ComPtr<IDXGISwapChain3> swapChain;
+			VEObject<GraphicsDevice> device;
+		};
+	}
 }

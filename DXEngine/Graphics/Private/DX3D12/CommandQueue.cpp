@@ -2,6 +2,7 @@
 #include "SwapChain.h"
 
 using namespace Venus;
+using namespace Venus::Private::Direct3D12;
 
 CommandQueue::CommandQueue(GraphicsDevice* device, ID3D12CommandQueue* queue)
 	: queue(queue)

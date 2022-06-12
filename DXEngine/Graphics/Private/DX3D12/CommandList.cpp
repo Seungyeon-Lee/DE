@@ -1,6 +1,7 @@
 #include "CommandList.h"
 
 using namespace Venus;
+using namespace Venus::Private::Direct3D12;
 
 CommandList::CommandList(ID3D12CommandAllocator* allocator, ID3D12CommandList* list, D3D12_COMMAND_LIST_TYPE type)
 	: type(type)

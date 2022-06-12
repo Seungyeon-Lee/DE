@@ -18,9 +18,9 @@ public:
 		window->Show();
 
 		graphicsDevice = VEGraphicsDevice::CreateGraphicsDevice();
-	/*	commandQueue = graphicsDevice->CreateCommandQueue();
+		commandQueue = graphicsDevice->CreateCommandQueue();
 		commandList = graphicsDevice->CreateCommandList();
-		swapChain = commandQueue->CreateSwapChain(window);*/
+		swapChain = commandQueue->CreateSwapChain(window);
 	}
 
 	void OnTerminate() override

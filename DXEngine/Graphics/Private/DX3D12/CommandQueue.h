@@ -3,7 +3,7 @@
 #include "DXInclude.h"
 #include "GraphicsDevice.h"
 
-namespace Venus
+namespace Venus::Private::Direct3D12
 {
 	class CommandQueue final : public VECommandQueue
 	{

@@ -2,7 +2,7 @@
 #include "../../VEGraphicsDevice.h"
 #include "DXInclude.h"
 
-namespace Venus
+namespace Venus::Private::Direct3D12
 {
 	class GraphicsDevice final : public VEGraphicsDevice
 	{
