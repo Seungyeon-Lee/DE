@@ -31,4 +31,15 @@ namespace Venus
 		virtual VEPixelFormat Format() const = 0;
 	};
 
+	struct VETextureDescriptor
+	{
+		VETexture::Type type;
+		VEPixelFormat format;
+		uint32_t width;
+		uint32_t height;
+		uint32_t depth;
+		uint32_t mipmapLevelCount;
+		uint32_t sampleCount;
+		uint32_t usage;
+	};
 }

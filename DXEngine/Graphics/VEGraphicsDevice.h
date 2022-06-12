@@ -4,6 +4,7 @@
 #include "VECommandQueue.h"
 #include "VECommandList.h"
 #include "VEGPUBuffer.h"
+#include "VETexture.h"
 
 namespace Venus
 {
@@ -15,6 +16,7 @@ namespace Venus
 		virtual VEObject<VECommandQueue> CreateCommandQueue() = 0;
 		virtual VEObject<VECommandList> CreateCommandList() = 0;
 		virtual VEObject<VEGPUBuffer> CreateGPUBuffer(size_t size, VEGPUBuffer::CPUCacheMode mode) = 0;
+		virtual VEObject<VETexture> CreateTexture(const VETextureDescriptor& descriptor) = 0;
 
 		static VEGraphicsDevice* CreateGraphicsDevice();
 

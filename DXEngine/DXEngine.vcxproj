@@ -215,6 +215,7 @@
     <ClInclude Include="Graphics\Private\DX3D12\CommandQueue.h" />
     <ClInclude Include="Graphics\Private\DX3D12\CommandList.h" />
     <ClInclude Include="Graphics\Private\DX3D12\DXInclude.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\PixelFormat.h" />
     <ClInclude Include="Graphics\VECommandList.h" />
     <ClInclude Include="Graphics\VECommandQueue.h" />
     <ClInclude Include="Graphics\Private\DX3D12\SwapChain.h" />
