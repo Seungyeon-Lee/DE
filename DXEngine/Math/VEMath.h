@@ -9,3 +9,6 @@
 #include "VEVector2.h"
 #include "VEVector3.h"
 #include "VEVector4.h"
+#include "VEPoint.h"
+#include "VESize.h"
+#include "VERect.h"
