@@ -205,6 +205,8 @@
     <ClCompile Include="Math\VEPoint.cpp" />
     <ClCompile Include="Math\VERect.cpp" />
     <ClCompile Include="Math\VESize.cpp" />
+    <ClCompile Include="Graphics\VEColor.cpp" />
+    <ClCompile Include="Graphics\VELinearColor.cpp" />
     <ClCompile Include="Window\VEWindow.cpp" />
     <ClCompile Include="Window\Platform\Win32\Window.cpp" />
   </ItemGroup>
@@ -227,6 +229,7 @@
     <ClInclude Include="Math\VEMath.h" />
     <ClInclude Include="Graphics\VEGPUBuffer.h" />
     <ClInclude Include="Graphics\Private\DX3D12\Texture.h" />
+    <ClInclude Include="Graphics\VEColor.h" />
     <ClInclude Include="VEInclude.h" />
     <ClInclude Include="Graphics\Private\DX3D12\d3dx12.h" />
     <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h" />
@@ -244,6 +247,7 @@
     <ClInclude Include="Math\VEVector4.h" />
     <ClInclude Include="Graphics\VESwapChain.h" />
     <ClInclude Include="Common\VERefCounter.h" />
+    <ClInclude Include="Graphics\VELinearColor.h" />
     <ClInclude Include="Venus.h" />
     <ClInclude Include="Graphics\VETexture.h" />
     <ClInclude Include="Math\VEPoint.h" />
