@@ -1,6 +1,5 @@
 #include "GraphicsDevice.h"
 #include "CommandQueue.h"
-#include "CommandList.h"
 #include "GPUBuffer.h"
 #include "Texture.h"
 #include "PixelFormat.h"
@@ -47,29 +46,25 @@ GraphicsDevice::GraphicsDevice()
 VEObject<VECommandQueue> GraphicsDevice::CreateCommandQueue()
 {
     ComPtr<ID3D12CommandQueue> queue;
-    D3D12_COMMAND_QUEUE_DESC queueDesc = {};
-    queueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
-    queueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
-    ThrowIfFailed(device->CreateCommandQueue(&queueDesc, IID_PPV_ARGS(&queue)));
+    {
+        D3D12_COMMAND_QUEUE_DESC desc{};
+        desc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;
+        desc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;
+        ThrowIfFailed(device->CreateCommandQueue(&desc, IID_PPV_ARGS(&queue)));
+    }
+    ComPtr<ID3D12Fence> fence;
+    {
+        ThrowIfFailed(device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(&fence)));
+    }
 
-    return new CommandQueue(this, queue.Get());
-}
-
-VEObject<VECommandList> GraphicsDevice::CreateCommandList()
-{
     ComPtr<ID3D12CommandAllocator> commandAllocator;
-
-    ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(commandAllocator.GetAddressOf())));
+    ThrowIfFailed(device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_DIRECT, IID_PPV_ARGS(&commandAllocator)));
 
     ComPtr<ID3D12GraphicsCommandList> commandList;
-    ThrowIfFailed(device->CreateCommandList(
-        0,
-        D3D12_COMMAND_LIST_TYPE_DIRECT,
-        commandAllocator.Get(), // Associated command allocator
-        nullptr,                   // Initial PipelineStateObject
-        IID_PPV_ARGS(commandList.GetAddressOf())));
+    ThrowIfFailed(device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_DIRECT, commandAllocator.Get(), nullptr, IID_PPV_ARGS(&commandList)));
+    commandList->Close();
 
-    return new CommandList(commandAllocator.Get(), commandList.Get(), D3D12_COMMAND_LIST_TYPE_DIRECT);
+    return new CommandQueue(this, queue.Get(), commandAllocator.Get(), commandList.Get(), fence.Get());
 }
 
 // Ref. DX12 : CreateDefaultBuffer Function
@@ -176,5 +171,96 @@ VEObject<VETexture> GraphicsDevice::CreateTexture(const VETextureDescriptor& des
             IID_PPV_ARGS(buffer.GetAddressOf())));
     }
 
-    return new Texture(buffer.Get(), initialState);
+    VEObject<Texture> newTexture = new Texture(buffer.Get(), initialState);
+
+    // Render Target View.
+    if (desc.usage & Texture::UsageRenderTarget)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;
+        heapDesc.NumDescriptors = 1;
+
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_RENDER_TARGET_VIEW_DESC rtvDesc{};
+        rtvDesc.Format = bufferDesc.Format;
+        switch (bufferDesc.Dimension)
+        {
+        case D3D12_RESOURCE_DIMENSION_TEXTURE1D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE1D;
+            break;
+        case D3D12_RESOURCE_DIMENSION_TEXTURE2D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
+            break;
+        case D3D12_RESOURCE_DIMENSION_TEXTURE3D:
+            rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE3D;
+            break;
+        }
+
+        device->CreateRenderTargetView(buffer.Get(), &rtvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetRenderTargetViewHeap(descriptorHeap.Get());
+    }
+
+    // Depth Stencil View.
+    if (desc.usage & Texture::UsageDepthStencil)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_DSV;
+        heapDesc.NumDescriptors = 1;
+
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_DEPTH_STENCIL_VIEW_DESC dsvDesc{};
+        dsvDesc.Format = bufferDesc.Format;
+        switch (desc.type)
+        {
+        case Texture::Type1D:
+            dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE1D;
+            break;
+        case Texture::Type2D:
+            dsvDesc.ViewDimension = D3D12_DSV_DIMENSION_TEXTURE2D;
+            break;
+        case Texture::Type3D:
+            break;
+        }
+
+        device->CreateDepthStencilView(buffer.Get(), &dsvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetDepthStencilViewHeap(descriptorHeap.Get());
+    }
+
+    // Shader Resource View
+    if (desc.usage & Texture::UsageShaderRead)
+    {
+        D3D12_DESCRIPTOR_HEAP_DESC heapDesc{};
+        heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+        heapDesc.NumDescriptors = 1;
+
+        ComPtr<ID3D12DescriptorHeap> descriptorHeap;
+        ThrowIfFailed(device->CreateDescriptorHeap(&heapDesc, IID_PPV_ARGS(descriptorHeap.GetAddressOf())));
+
+        D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};
+        srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+        srvDesc.Format = bufferDesc.Format;
+        switch (desc.type)
+        {
+        case Texture::Type1D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE1D;
+            srvDesc.Texture1D.MipLevels = bufferDesc.MipLevels;
+            break;
+        case Texture::Type2D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+            srvDesc.Texture2D.MipLevels = bufferDesc.MipLevels;
+            break;
+        case Texture::Type3D:
+            srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE3D;
+            srvDesc.Texture3D.MipLevels = bufferDesc.MipLevels;
+            break;
+        }
+        device->CreateShaderResourceView(buffer.Get(), &srvDesc, descriptorHeap->GetCPUDescriptorHandleForHeapStart());
+        newTexture->SetShaderResourceViewHeap(descriptorHeap.Get());
+    }
+
+    return newTexture.Ptr();
 }

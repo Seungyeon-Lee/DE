@@ -183,12 +183,13 @@
   <ItemGroup>
     <ClCompile Include="Application\Platform\Win32\ApplicationContext.cpp" />
     <ClCompile Include="Application\VEApplication.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\CommandBuffer.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\GPUBuffer.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\CommandQueue.cpp" />
-    <ClCompile Include="Graphics\Private\DX3D12\CommandList.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\DXInclude.cpp" />
     <ClCompile Include="Graphics\Private\DX3D12\GraphicsDevice.cpp" />
     <ClCompile Include="Graphics\VEGraphicsDevice.cpp" />
+    <ClCompile Include="Graphics\VEViewport.cpp" />
     <ClCompile Include="Math\VEAffineTransform2.cpp" />
     <ClCompile Include="Math\VEAffineTransform3.cpp" />
     <ClCompile Include="Math\VELinearTransform2.cpp" />
@@ -207,6 +208,8 @@
     <ClCompile Include="Math\VESize.cpp" />
     <ClCompile Include="Graphics\VEColor.cpp" />
     <ClCompile Include="Graphics\VELinearColor.cpp" />
+    <ClCompile Include="Graphics\Private\DX3D12\RenderCommandEncoder.cpp" />
+    <ClCompile Include="Lock\VESpinLock.cpp" />
     <ClCompile Include="Window\VEWindow.cpp" />
     <ClCompile Include="Window\Platform\Win32\Window.cpp" />
   </ItemGroup>
@@ -215,21 +218,26 @@
     <ClInclude Include="Application\Platform\Win32\ApplicationContext.h" />
     <ClInclude Include="Application\VEApplication.h" />
     <ClInclude Include="Application\VEApplicationContextInterface.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\CommandBuffer.h" />
     <ClInclude Include="Common\VEObject.h" />
     <ClInclude Include="Graphics\Private\DX3D12\GPUBuffer.h" />
     <ClInclude Include="Graphics\Private\DX3D12\CommandQueue.h" />
-    <ClInclude Include="Graphics\Private\DX3D12\CommandList.h" />
     <ClInclude Include="Graphics\Private\DX3D12\DXInclude.h" />
     <ClInclude Include="Graphics\Private\DX3D12\PixelFormat.h" />
-    <ClInclude Include="Graphics\VECommandList.h" />
+    <ClInclude Include="Graphics\VECommandBuffer.h" />
     <ClInclude Include="Graphics\VECommandQueue.h" />
     <ClInclude Include="Graphics\Private\DX3D12\SwapChain.h" />
     <ClInclude Include="Graphics\VEGraphics.h" />
     <ClInclude Include="Graphics\VEPixelFormat.h" />
+    <ClInclude Include="Graphics\VERenderCommandEncoder.h" />
+    <ClInclude Include="Graphics\VEViewport.h" />
+    <ClInclude Include="Lock\VELock.h" />
+    <ClInclude Include="Lock\VEScopedLock.h" />
     <ClInclude Include="Math\VEMath.h" />
     <ClInclude Include="Graphics\VEGPUBuffer.h" />
     <ClInclude Include="Graphics\Private\DX3D12\Texture.h" />
     <ClInclude Include="Graphics\VEColor.h" />
+    <ClInclude Include="Graphics\Private\DX3D12\RenderCommandEncoder.h" />
     <ClInclude Include="VEInclude.h" />
     <ClInclude Include="Graphics\Private\DX3D12\d3dx12.h" />
     <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h" />
@@ -253,6 +261,7 @@
     <ClInclude Include="Math\VEPoint.h" />
     <ClInclude Include="Math\VERect.h" />
     <ClInclude Include="Math\VESize.h" />
+    <ClInclude Include="Lock\VESpinLock.h" />
     <ClInclude Include="Window\Platform\WindowPlatform.h" />
     <ClInclude Include="Window\VEWindow.h" />
     <ClInclude Include="Window\Platform\Win32\Window.h" />

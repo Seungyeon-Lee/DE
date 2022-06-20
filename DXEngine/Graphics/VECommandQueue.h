@@ -2,6 +2,7 @@
 #include "../VEInclude.h"
 #include "../Common/VEObject.h"
 #include "VESwapChain.h"
+#include "VECommandBuffer.h"
 
 namespace Venus
 {
@@ -14,6 +15,9 @@ namespace Venus
 		virtual ~VECommandQueue() noexcept = default;
 
 		virtual VEObject<VESwapChain> CreateSwapChain(const VEWindow*) = 0;
+		virtual VEObject<VECommandBuffer> CreateCommandBuffer() = 0;
+
+		virtual void WaitComplete() = 0;
 	};
 
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include "../VEInclude.h"
-#include "VELinearColor.h"
 
 namespace Venus
 {
+    class VELinearColor;
     class VE_API VEColor
     {
     public:

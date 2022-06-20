@@ -1,4 +1,5 @@
 #include "VEColor.h"
+#include "VELinearColor.h"
 
 using namespace Venus;
 
