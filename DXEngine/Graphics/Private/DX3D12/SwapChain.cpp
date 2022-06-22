@@ -10,7 +10,7 @@ SwapChain::SwapChain(GraphicsDevice* device, CommandQueue* queue, const VEWindow
     , height(window->Height())
     , currentTextureIndex(0)
     , swapChain(nullptr)
-    , device(nullptr)
+    , device(device)
 {
     DXGI_SWAP_CHAIN_DESC1 desc{};
     desc.Width = width;

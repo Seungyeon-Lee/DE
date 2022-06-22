@@ -32,7 +32,7 @@ VEObject<VECommandBuffer> CommandQueue::CreateCommandBuffer()
 
 void CommandQueue::WaitComplete()
 {
-	VEScopedLock guard(lock);
+	// VEScopedLock guard(lock);
 	ThrowIfFailed(queue->Signal(fence.Get(), ++currentFenceNumber));
 	if (fence->GetCompletedValue() < currentFenceNumber)
 	{
@@ -49,7 +49,7 @@ void CommandQueue::WaitComplete()
 
 uint64_t CommandQueue::ExecuteCommandLists(uint32_t numCommandLists, ID3D12CommandList* const* commandLists)
 {
-	VEScopedLock guard(lock);
+	// VEScopedLock guard(lock);
 	queue->ExecuteCommandLists(numCommandLists, commandLists);
 	ThrowIfFailed(queue->Signal(fence.Get(), ++currentFenceNumber));
 	return currentFenceNumber;
