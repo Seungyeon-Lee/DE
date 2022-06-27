@@ -81,7 +81,7 @@ void SwapChain::SetupDepthStencil()
     desc.mipmapLevelCount = 1;
     desc.sampleCount = 1;
     desc.usage = Texture::UsageDepthStencil;
-    depthStencilTexture = device->CreateTexture(desc).DynamicCast<Texture>();
+    depthStencilTexture = dynamic_cast<Texture*>(device->CreateTexture(desc).Ptr());
 }
 
 
@@ -119,7 +119,7 @@ const VETexture* SwapChain::CurrentColorTexture() const
 
 const VETexture* SwapChain::DepthStencilTexture() const
 {
-    return nullptr;
+    return depthStencilTexture;
 }
 
 void SwapChain::Present()

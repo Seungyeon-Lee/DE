@@ -20,12 +20,12 @@ VEObject<VERenderCommandEncoder> CommandBuffer::CreateRenderCommandEncoder()
 
 void CommandBuffer::Commit()
 {
-	ID3D12CommandList* cmdLists[] = { list.Get() };
-	commandQueue->ExecuteCommandLists(1, cmdLists);
+	ID3D12CommandList* commandLists[] = { list.Get() };
+	commandQueue->ExecuteCommandLists(1, commandLists);
 }
 
 void CommandBuffer::AddEncodedCommandList(ID3D12GraphicsCommandList* commandList)
 {
-	// not yet.
+	// TODO
 }
 

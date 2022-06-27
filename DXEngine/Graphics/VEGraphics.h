@@ -1,2 +1,9 @@
 #pragma once
 #include "VEGraphicsDevice.h"
+#include "VECommandQueue.h"
+#include "VECommandBuffer.h"
+#include "VEGPUBuffer.h"
+#include "VETexture.h"
+#include "VEColor.h"
+#include "VELinearColor.h"
+#include "VEViewport.h"
