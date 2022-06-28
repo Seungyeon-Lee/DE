@@ -33,6 +33,7 @@ public:
 		textureDesc.sampleCount = 1;
 		textureDesc.usage = VETexture::UsageShaderRead;
 		texture = graphicsDevice->CreateTexture(textureDesc);
+		renderPipeline = graphicsDevice->CreateRenderPipeline(/*descriptor*/);
 
 		loopThread = std::jthread([this](std::stop_token token)
 		{
@@ -59,7 +60,7 @@ public:
 	{
 		if (VEObject<VECommandBuffer> commandBuffer = commandQueue->CreateCommandBuffer())
 		{
-			if (VEObject<VERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder())
+			if (VEObject<VERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder(renderPipeline))
 			{
 				VEViewport viewport(0, 0, (float)window->Width(), (float)window->Height(), 0.f, 1.f);
 				encoder->SetViewport(viewport);
@@ -89,6 +90,8 @@ private:
 	VEObject<VEGraphicsDevice> graphicsDevice;
 	VEObject<VECommandQueue> commandQueue;
 	VEObject<VESwapChain> swapChain;
+	VEObject<VERenderPipeline> renderPipeline;
+
 	VEObject<VEGPUBuffer> vertexBuffer;
 	VEObject<VETexture> texture;
 };

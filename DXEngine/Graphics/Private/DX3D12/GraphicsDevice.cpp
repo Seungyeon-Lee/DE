@@ -264,3 +264,8 @@ VEObject<VETexture> GraphicsDevice::CreateTexture(const VETextureDescriptor& des
 
     return newTexture.Ptr();
 }
+
+VEObject<VERenderPipeline> GraphicsDevice::CreateRenderPipeline(/* descriptor */)
+{
+    return VEObject<VERenderPipeline>();
+}

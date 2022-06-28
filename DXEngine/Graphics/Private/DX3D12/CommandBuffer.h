@@ -11,7 +11,7 @@ namespace Venus::Private::Direct3D12
 		CommandBuffer(CommandQueue*, ID3D12CommandAllocator*, ID3D12GraphicsCommandList*, D3D12_COMMAND_LIST_TYPE);
 		~CommandBuffer() noexcept = default;
 
-		VEObject<VERenderCommandEncoder> CreateRenderCommandEncoder() override;
+		VEObject<VERenderCommandEncoder> CreateRenderCommandEncoder(VERenderPipeline* pipelineState) override;
 		VEObject<VECopyCommandEncoder> CreateCopyCommandEncoder() override;
 
 		void Commit() override;

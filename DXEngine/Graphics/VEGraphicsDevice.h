@@ -13,6 +13,7 @@ namespace Venus
 		virtual ~VEGraphicsDevice() noexcept = default;
 
 		virtual VEObject<VECommandQueue> CreateCommandQueue() = 0;
+		virtual VEObject<VERenderPipeline> CreateRenderPipeline(/* TODO : descriptor */) = 0;
 		virtual VEObject<VEGPUBuffer> CreateGPUBuffer(size_t size, VEGPUBuffer::CPUCacheMode mode) = 0;
 		virtual VEObject<VETexture> CreateTexture(const VETextureDescriptor& descriptor) = 0;
 

@@ -1,6 +1,7 @@
 #include "CommandBuffer.h"
 #include "RenderCommandEncoder.h"
 #include "CopyCommandEncoder.h"
+#include "RenderPipeline.h"
 
 using namespace Venus;
 using namespace Venus::Private::Direct3D12;
@@ -13,9 +14,16 @@ CommandBuffer::CommandBuffer(CommandQueue* commandQueue, ID3D12CommandAllocator*
 {
 }
 
-VEObject<VERenderCommandEncoder> CommandBuffer::CreateRenderCommandEncoder()
+VEObject<VERenderCommandEncoder> CommandBuffer::CreateRenderCommandEncoder(VERenderPipeline* pipelineState)
 {
-	list->Reset(allocator.Get(), nullptr);
+	if (RenderPipeline* ps = dynamic_cast<RenderPipeline*>(pipelineState))
+	{
+		list->Reset(allocator.Get(), ps->PipelineState());
+	}
+	else
+	{
+		list->Reset(allocator.Get(), nullptr);
+	}
 	return new RenderCommandEncoder(this, list.Get());
 }
 

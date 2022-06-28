@@ -11,6 +11,8 @@ namespace Venus::Private::Direct3D12
 		~GraphicsDevice() noexcept = default;
 
 		VEObject<VECommandQueue> CreateCommandQueue() override;
+		VEObject<VERenderPipeline> CreateRenderPipeline(/* TODO : descriptor */) override;
+
 		VEObject<VEGPUBuffer> CreateGPUBuffer(size_t size, VEGPUBuffer::CPUCacheMode mode) override;
 		VEObject<VETexture> CreateTexture(const VETextureDescriptor& descriptor) override;
 
