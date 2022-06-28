@@ -1,7 +1,6 @@
 #pragma once
 #include "../../VECommandBuffer.h"
 #include "DXInclude.h"
-#include "GraphicsDevice.h"
 #include "CommandQueue.h"
 
 namespace Venus::Private::Direct3D12
@@ -13,6 +12,7 @@ namespace Venus::Private::Direct3D12
 		~CommandBuffer() noexcept = default;
 
 		VEObject<VERenderCommandEncoder> CreateRenderCommandEncoder() override;
+		VEObject<VECopyCommandEncoder> CreateCopyCommandEncoder() override;
 
 		void Commit() override;
 

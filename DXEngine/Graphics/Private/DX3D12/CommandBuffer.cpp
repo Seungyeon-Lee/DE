@@ -1,5 +1,6 @@
 #include "CommandBuffer.h"
 #include "RenderCommandEncoder.h"
+#include "CopyCommandEncoder.h"
 
 using namespace Venus;
 using namespace Venus::Private::Direct3D12;
@@ -16,6 +17,12 @@ VEObject<VERenderCommandEncoder> CommandBuffer::CreateRenderCommandEncoder()
 {
 	list->Reset(allocator.Get(), nullptr);
 	return new RenderCommandEncoder(this, list.Get());
+}
+
+VEObject<VECopyCommandEncoder> CommandBuffer::CreateCopyCommandEncoder()
+{
+	list->Reset(allocator.Get(), nullptr);
+	return new CopyCommandEncoder(this, list.Get());
 }
 
 void CommandBuffer::Commit()
