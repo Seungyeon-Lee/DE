@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Graphics\Private\DX3D12\SwapChain.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\GPUBuffer.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\DXInclude.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\CommandQueue.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VEGraphicsDevice.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\Texture.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\VEApplication.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\GraphicsDevice.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VELinearTransform2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VELinearTransform3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Platform\Win32\ApplicationContext.cpp">
+      <Filter>Application\Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\RenderCommandEncoder.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VEColor.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\VEWindow.cpp">
+      <Filter>Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VELinearColor.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\CopyCommandEncoder.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\RenderPipeline.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEPoint.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEAffineTransform2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VERect.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEAffineTransform3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\CommandBuffer.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\VEViewport.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEMatrix2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEMatrix3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEMatrix4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEVector2.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEVector3.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\Platform\Win32\Window.cpp">
+      <Filter>Window\Platform\Win32</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VEVector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Common\VERefCounter.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\VESize.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\VERefCounter.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\PixelFormat.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VERenderPipeline.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEMatrix4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\CommandQueue.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\SwapChain.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\GPUBuffer.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\DXInclude.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\RenderCommandEncoder.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEColor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEAffineTransform3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VERect.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEMatrix2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\ApplicationPlatform.h">
+      <Filter>Application\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEVector4.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\Platform\Win32\Window.h">
+      <Filter>Window\Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\CopyCommandEncoder.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEViewport.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VELinearColor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VECopyCommandEncoder.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEMatrix3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VERenderCommandEncoder.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEGPUBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VESwapChain.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEGraphicsDevice.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\Texture.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Venus.h" />
+    <ClInclude Include="Graphics\VECommandBuffer.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEPoint.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VESize.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEAffineTransform2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="VEInclude.h" />
+    <ClInclude Include="Graphics\VETexture.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Platform\Win32\ApplicationContext.h">
+      <Filter>Application\Platform\Win32</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEGraphics.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\VEObject.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\VEWindow.h">
+      <Filter>Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEVector2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEVector3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VELinearTransform2.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VELinearTransform3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\CommandBuffer.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Math\VEMath.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\VEApplicationContextInterface.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\RenderPipeline.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\GraphicsAPI.h">
+      <Filter>Graphics\Private</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEPixelFormat.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VECommandQueue.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\Platform\WindowPlatform.h">
+      <Filter>Window\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\d3dx12.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\VEApplication.h">
+      <Filter>Application</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{8d4e5b55-392f-4648-8f15-1b0bfa77efea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Private">
+      <UniqueIdentifier>{56a71659-a9ac-4c84-a565-fefa26d9a918}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Private\DX3D12">
+      <UniqueIdentifier>{7f4ef0cb-50fd-42c3-8f11-dc5755192682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{54afaaaf-dcec-4e2c-9989-90f2ea70d7ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{226f20ba-bf38-4e61-907c-e0a6e0364cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{ad8136bb-7005-43c1-a06d-3923cd046bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Platform">
+      <UniqueIdentifier>{8efa6806-3534-4b40-88f0-4838f403ea8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\Platform\Win32">
+      <UniqueIdentifier>{9967cde5-303d-4f7c-acc2-07cacb97909b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window">
+      <UniqueIdentifier>{921b6258-cc90-4092-b89c-b459ca1debbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Platform">
+      <UniqueIdentifier>{6d9865a3-d607-48ce-b13b-c5dba52f608c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Window\Platform\Win32">
+      <UniqueIdentifier>{21ab078f-e8ca-4ade-a56c-bd0b1a764926}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
