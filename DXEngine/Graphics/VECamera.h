@@ -3,18 +3,15 @@
 #include "../Math/VEVector3.h"
 #include "../Math/VEMatrix4.h" 
 
-
 namespace Venus
 {
-    class VELinearColor;
-    class VE_API VECamera
+    class VE_API VECamera final
     {
     public:
         VECamera();
+        ~VECamera() = default;
 
-        void SetupViewMatrix(const VEVector3& pos,
-            const VEVector3& targetPos,
-            const VEVector3& worldUpDir);
+        void SetupViewMatrix(const VEVector3& pos, const VEVector3& targetPos, const VEVector3& worldUpDir);
 
         void SetPerspective(float fov, float aspect, float near, float far);
 

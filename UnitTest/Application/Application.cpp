@@ -3,6 +3,11 @@
 
 using namespace Venus;
 
+struct Constants
+{
+	VEMatrix4 worldViewProj;
+};
+
 class TestApplication : public VEApplication
 {
 public:
@@ -33,7 +38,18 @@ public:
 		textureDesc.sampleCount = 1;
 		textureDesc.usage = VETexture::UsageShaderRead;
 		texture = graphicsDevice->CreateTexture(textureDesc);
+
 		renderPipeline = graphicsDevice->CreateRenderPipeline(/*descriptor*/);
+
+		camera.SetupViewMatrix(VEVector3{ 0.f, 0.f, -5.f }, VEVector3{}, VEVector3{ 0.f, 1.f, 0.f });
+		camera.SetPerspective(0.25f * 3.1415926535f, window->AspectRatio(), 1.0f, 1000.f);
+
+		Constants constants;
+		constants.worldViewProj = camera.ViewMatrix() * camera.ProjectionMatrix();
+
+		// Update the constant buffer with the latest worldViewProj matrix.
+		constantsBuffer = graphicsDevice->CreateGPUBuffer(sizeof(Constants), VEGPUBuffer::CPUCacheMode::UPLOAD);
+		constantsBuffer->WriteData(&constants, sizeof(Constants));
 
 		loopThread = std::jthread([this](std::stop_token token)
 		{
@@ -94,6 +110,9 @@ private:
 
 	VEObject<VEGPUBuffer> vertexBuffer;
 	VEObject<VETexture> texture;
+
+	VECamera camera;
+	VEObject<VEGPUBuffer> constantsBuffer;
 };
 
 TEST(Application, Init)

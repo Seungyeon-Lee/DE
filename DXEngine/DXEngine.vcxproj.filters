@@ -97,6 +97,7 @@
     <ClCompile Include="Math\VESize.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics\VECamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h">
@@ -251,6 +252,7 @@
     <ClInclude Include="Application\VEApplication.h">
       <Filter>Application</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics\VECamera.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

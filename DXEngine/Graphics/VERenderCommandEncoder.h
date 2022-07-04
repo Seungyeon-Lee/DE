@@ -21,6 +21,15 @@ namespace Venus
             All,
         };
 
+        enum class PrimitiveType
+        {
+            Point,
+            Line,
+            LineStrip,
+            Triangle,
+            TriangleStrip,
+        };
+
         VERenderCommandEncoder() = default;
         virtual ~VERenderCommandEncoder() noexcept = default;
 
@@ -32,6 +41,14 @@ namespace Venus
         virtual void SetRenderTargets(std::vector<const VETexture*> renderTargets, const VETexture* depthStencil) = 0;
         virtual void ClearRenderTargetView(const VETexture* renderTarget, const VELinearColor& clearColor) = 0;
         virtual void ClearDepthStencilView(const VETexture* depthStencil, DepthStencilClearFlag clearFlag, float clearDepth, uint8_t clearStencil) = 0;
+
+        virtual void SetVertexBuffer(const VEGPUBuffer* vertexBuffer, uint32_t vertexSize) = 0;
+        virtual void SetIndexBuffer(const VEGPUBuffer* indexBuffer, uint32_t indexSize) = 0;
+
+        virtual void SetConstantBuffer(uint32_t index, const VEGPUBuffer* constantBuffer) = 0;
+
+        virtual void DrawPrimitives(PrimitiveType primitiveType, uint32_t vertexCount, uint32_t instanceCount, uint32_t vertexStart, uint32_t instanceStart) = 0;
+        virtual void DrawIndexedPrimitives(PrimitiveType primitiveType, uint32_t indexCount, uint32_t instanceCount, uint32_t indexOffset, uint32_t vertexOffset, uint32_t instanceStart) = 0;
 
         virtual void EndEncoding() = 0;
     };

@@ -7,3 +7,4 @@
 #include "VEColor.h"
 #include "VELinearColor.h"
 #include "VEViewport.h"
+#include "VECamera.h"
