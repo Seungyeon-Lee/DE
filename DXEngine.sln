@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "googletest", "ThirdParty\googletest\googletest.vcxproj", "{DD98156D-7474-4F95-8736-EF519E1100D2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyobjloader", "tinyobjloader\tinyobjloader.vcxproj", "{440666C4-FF0F-44DC-A04C-E0F11E6517E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -43,12 +45,21 @@ Global
 		{DD98156D-7474-4F95-8736-EF519E1100D2}.Release|x64.Build.0 = Release|x64
 		{DD98156D-7474-4F95-8736-EF519E1100D2}.Release|x86.ActiveCfg = Release|Win32
 		{DD98156D-7474-4F95-8736-EF519E1100D2}.Release|x86.Build.0 = Release|Win32
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Debug|x64.ActiveCfg = Debug|x64
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Debug|x64.Build.0 = Debug|x64
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Debug|x86.ActiveCfg = Debug|Win32
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Debug|x86.Build.0 = Debug|Win32
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x64.ActiveCfg = Release|x64
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x64.Build.0 = Release|x64
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x86.ActiveCfg = Release|Win32
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DD98156D-7474-4F95-8736-EF519E1100D2} = {C503C88D-F338-4A7D-9344-9F4FC102323E}
+		{440666C4-FF0F-44DC-A04C-E0F11E6517E7} = {C503C88D-F338-4A7D-9344-9F4FC102323E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92A732F8-FA76-43EF-87FE-D4DC085BDEEC}
