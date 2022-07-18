@@ -2,7 +2,7 @@
 
 using namespace Venus;
 
-VECamera::VECamera()
+Venus::VECamera::VECamera()
     : near(0.f)
     , far(0.f)
 {

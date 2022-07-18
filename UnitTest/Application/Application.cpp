@@ -1,7 +1,21 @@
 #include "gtest/gtest.h"
+#include <vector>
 #include "Venus.h"
 
 using namespace Venus;
+
+struct Vertex
+{
+	VEVector3 pos;
+	VEVector3 normal;
+	VELinearColor color;
+};
+
+struct StaticMesh
+{
+	std::vector <Vertex> vertices;
+	VEObject<VEGPUBuffer> vertexBuffer;
+};
 
 struct Constants
 {
@@ -26,8 +40,6 @@ public:
 		commandQueue = graphicsDevice->CreateCommandQueue();
 		swapChain = commandQueue->CreateSwapChain(window);
 
-		vertexBuffer = graphicsDevice->CreateGPUBuffer(50000, VEGPUBuffer::CPUCacheMode::UPLOAD);
-
 		VETextureDescriptor textureDesc;
 		textureDesc.type = VETexture::Type2D;
 		textureDesc.format = VEPixelFormat::RGBA8Unorm;
@@ -39,7 +51,23 @@ public:
 		textureDesc.usage = VETexture::UsageShaderRead;
 		texture = graphicsDevice->CreateTexture(textureDesc);
 
-		renderPipeline = graphicsDevice->CreateRenderPipeline(/*descriptor*/);
+		vertexShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "VS", VEShader::StageType::Vertex);
+		pixelShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "PS", VEShader::StageType::Fragment);
+
+		VERenderPipelineDescriptor descriptor{};
+		descriptor.sampleCount = 1;
+		descriptor.vertexShader = vertexShader;
+		descriptor.fragmentShader = pixelShader;
+		descriptor.vertexDescriptor.attributes = {
+			{VEVertexFormat::Float3, "POSITION", 0, 0},
+			{VEVertexFormat::Float3, "NORMAL", 0, 12 },
+			{VEVertexFormat::Float4, "COLOR", 0, 24 },
+		};
+		descriptor.colorAttachments = { { VEPixelFormat::RGBA8Unorm, false } };
+		descriptor.depthStencilAttachmentPixelFormat = VEPixelFormat::Depth24UnormStencil8;
+		descriptor.inputPrimitiveTopology = VEPrimitiveTopologyType::Triangle;
+
+		renderPipeline = graphicsDevice->CreateRenderPipeline(descriptor);
 
 		camera.SetupViewMatrix(VEVector3{ 0.f, 0.f, -5.f }, VEVector3{}, VEVector3{ 0.f, 1.f, 0.f });
 		camera.SetPerspective(0.25f * 3.1415926535f, window->AspectRatio(), 1.0f, 1000.f);
@@ -50,6 +78,8 @@ public:
 		// Update the constant buffer with the latest worldViewProj matrix.
 		constantsBuffer = graphicsDevice->CreateGPUBuffer(sizeof(Constants), VEGPUBuffer::CPUCacheMode::UPLOAD);
 		constantsBuffer->WriteData(&constants, sizeof(Constants));
+
+		// LoadTestModel();
 
 		loopThread = std::jthread([this](std::stop_token token)
 		{
@@ -108,10 +138,13 @@ private:
 	VEObject<VESwapChain> swapChain;
 	VEObject<VERenderPipeline> renderPipeline;
 
-	VEObject<VEGPUBuffer> vertexBuffer;
 	VEObject<VETexture> texture;
 
+	VEObject<VEShader> vertexShader;
+	VEObject<VEShader> pixelShader;
+
 	VECamera camera;
+	std::vector<StaticMesh> staticMeshes;
 	VEObject<VEGPUBuffer> constantsBuffer;
 };
 

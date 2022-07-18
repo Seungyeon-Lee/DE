@@ -24,11 +24,6 @@ namespace Venus
 		{
 			InternalAddRef();
 		}
-		VEObject(const VEObject&& obj) noexcept
-			: target(obj.target)
-		{
-			obj.target = nullptr;
-		}
 
 		// convertible 형식도 동일하게 처리
 		template<Convertible U>

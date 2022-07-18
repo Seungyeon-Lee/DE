@@ -97,7 +97,12 @@
     <ClCompile Include="Math\VESize.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="Graphics\VECamera.cpp" />
+    <ClCompile Include="Graphics\VECamera.cpp">
+      <Filter>Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics\Private\DX3D12\Shader.cpp">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Graphics\Private\DX3D12\GraphicsDevice.h">
@@ -252,7 +257,24 @@
     <ClInclude Include="Application\VEApplication.h">
       <Filter>Application</Filter>
     </ClInclude>
-    <ClInclude Include="Graphics\VECamera.h" />
+    <ClInclude Include="Graphics\VECamera.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\Type.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEBlendState.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEShader.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\Private\DX3D12\Shader.h">
+      <Filter>Graphics\Private\DX3D12</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics\VEVertexDescriptor.h">
+      <Filter>Graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Graphics">

@@ -2,9 +2,12 @@
 #include "CommandQueue.h"
 #include "GPUBuffer.h"
 #include "Texture.h"
-#include "PixelFormat.h"
+#include "Type.h"
+#include "Shader.h"
+#include "RenderPipeline.h"
+#include <array>
 
-namespace Venus::Private::Direct3D12
+namespace Venus::Private::Direct3D12 
 {
 	VEGraphicsDevice* CreateGraphicsDevice()
 	{
@@ -14,6 +17,66 @@ namespace Venus::Private::Direct3D12
 
 using namespace Venus;
 using namespace Venus::Private::Direct3D12;
+
+namespace Private
+{
+    static std::array<const CD3DX12_STATIC_SAMPLER_DESC, 6> GetStaticSamplers()
+    {
+        // Applications usually only need a handful of samplers.  So just define them all up front
+        // and keep them available as part of the root signature.  
+
+        const CD3DX12_STATIC_SAMPLER_DESC pointWrap(
+            0, // shaderRegister
+            D3D12_FILTER_MIN_MAG_MIP_POINT, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP); // addressW
+
+        const CD3DX12_STATIC_SAMPLER_DESC pointClamp(
+            1, // shaderRegister
+            D3D12_FILTER_MIN_MAG_MIP_POINT, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP); // addressW
+
+        const CD3DX12_STATIC_SAMPLER_DESC linearWrap(
+            2, // shaderRegister
+            D3D12_FILTER_MIN_MAG_MIP_LINEAR, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP); // addressW
+
+        const CD3DX12_STATIC_SAMPLER_DESC linearClamp(
+            3, // shaderRegister
+            D3D12_FILTER_MIN_MAG_MIP_LINEAR, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP); // addressW
+
+        const CD3DX12_STATIC_SAMPLER_DESC anisotropicWrap(
+            4, // shaderRegister
+            D3D12_FILTER_ANISOTROPIC, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_WRAP,  // addressW
+            0.0f,                             // mipLODBias
+            8);                               // maxAnisotropy
+
+        const CD3DX12_STATIC_SAMPLER_DESC anisotropicClamp(
+            5, // shaderRegister
+            D3D12_FILTER_ANISOTROPIC, // filter
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressU
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressV
+            D3D12_TEXTURE_ADDRESS_MODE_CLAMP,  // addressW
+            0.0f,                              // mipLODBias
+            8);                                // maxAnisotropy
+
+        return {
+            pointWrap, pointClamp,
+            linearWrap, linearClamp,
+            anisotropicWrap, anisotropicClamp };
+    }
+}
 
 GraphicsDevice::GraphicsDevice()
 {
@@ -265,7 +328,130 @@ VEObject<VETexture> GraphicsDevice::CreateTexture(const VETextureDescriptor& des
     return newTexture.Ptr();
 }
 
-VEObject<VERenderPipeline> GraphicsDevice::CreateRenderPipeline(/* descriptor */)
+VEObject<VERenderPipeline> GraphicsDevice::CreateRenderPipeline(const VERenderPipelineDescriptor& descriptor)
 {
-    return VEObject<VERenderPipeline>();
+    ComPtr<ID3D12RootSignature> rootSignature;
+    {
+        CD3DX12_ROOT_PARAMETER slotRootParameters[1] = {};
+        slotRootParameters[0].InitAsConstantBufferView(0);
+
+        auto staticSamplers = ::Private::GetStaticSamplers();
+
+        // Ref: ShapeApp.cpp
+         // A root signature is an array of root parameters.
+        CD3DX12_ROOT_SIGNATURE_DESC rootSigDesc(1, slotRootParameters,
+            static_cast<UINT>(staticSamplers.size()), staticSamplers.data(),
+            D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+
+        // create a root signature with a single slot which points to a descriptor range consisting of a single constant buffer
+        ComPtr<ID3DBlob> serializedRootSig = nullptr;
+        ComPtr<ID3DBlob> errorBlob = nullptr;
+        HRESULT hr = D3D12SerializeRootSignature(&rootSigDesc, D3D_ROOT_SIGNATURE_VERSION_1,
+            serializedRootSig.GetAddressOf(), errorBlob.GetAddressOf());
+
+        if (errorBlob != nullptr)
+        {
+            ::OutputDebugStringA((char*)errorBlob->GetBufferPointer());
+        }
+        ThrowIfFailed(hr);
+
+        ThrowIfFailed(device->CreateRootSignature(
+            0,
+            serializedRootSig->GetBufferPointer(),
+            serializedRootSig->GetBufferSize(),
+            IID_PPV_ARGS(rootSignature.GetAddressOf())));
+    }
+
+    ComPtr<ID3D12PipelineState> pipelineState;
+    {
+        D3D12_GRAPHICS_PIPELINE_STATE_DESC psoDesc = {};
+
+        psoDesc.pRootSignature = rootSignature.Get();
+
+        std::vector<D3D12_INPUT_ELEMENT_DESC> inputLayout;
+        {
+            UINT index = 0;
+            inputLayout.reserve(descriptor.vertexDescriptor.attributes.size());
+            for (const auto& attribute : descriptor.vertexDescriptor.attributes)
+            {
+                D3D12_INPUT_ELEMENT_DESC desc = {};
+                desc.SemanticName = attribute.semanticName;
+                desc.SemanticIndex = attribute.semanticIndex;
+                desc.Format = VertexFormat(attribute.format);
+                desc.AlignedByteOffset = attribute.offset;
+                inputLayout.push_back(desc);
+            }
+        }
+        psoDesc.InputLayout = { inputLayout.data(), (UINT)inputLayout.size() };
+        psoDesc.VS = const_cast<VEObject<VEShader>&>(descriptor.vertexShader).DynamicCast<Shader>()->ByteCode();
+        psoDesc.PS = const_cast<VEObject<VEShader>&>(descriptor.fragmentShader).DynamicCast<Shader>()->ByteCode();
+
+        psoDesc.PrimitiveTopologyType = PrimitiveType(descriptor.inputPrimitiveTopology);
+
+        psoDesc.NumRenderTargets = static_cast<ULONG>(descriptor.colorAttachments.size());
+        psoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
+        for (int i = 0; i < descriptor.colorAttachments.size(); ++i)
+        {
+            const auto& attachment = descriptor.colorAttachments[i];
+            psoDesc.RTVFormats[i] = PixelFormat(attachment.pixelFormat);
+
+            psoDesc.BlendState.RenderTarget[i].BlendEnable = attachment.blendingEnabled;
+            psoDesc.BlendState.RenderTarget[i].BlendOp = BlendOperation(attachment.rgbBlendOperation);
+            psoDesc.BlendState.RenderTarget[i].SrcBlend = BlendFactor(attachment.sourceRGBBlendFactor);
+            psoDesc.BlendState.RenderTarget[i].DestBlend = BlendFactor(attachment.destinationRGBBlendFactor);
+            psoDesc.BlendState.RenderTarget[i].BlendOpAlpha = BlendOperation(attachment.alphaBlendOperation);
+            psoDesc.BlendState.RenderTarget[i].SrcBlendAlpha = BlendFactor(attachment.sourceAlphaBlendFactor);
+            psoDesc.BlendState.RenderTarget[i].DestBlendAlpha = BlendFactor(attachment.destinationAlphaBlendFactor);
+            psoDesc.BlendState.RenderTarget[i].RenderTargetWriteMask = attachment.writeMask;
+        }
+
+        psoDesc.SampleDesc.Count = descriptor.sampleCount;
+        psoDesc.DSVFormat = PixelFormat(descriptor.depthStencilAttachmentPixelFormat);
+
+        // TODO: need general type.
+        psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
+        psoDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+        psoDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_GREATER;
+        psoDesc.SampleMask = UINT_MAX;
+        ThrowIfFailed(device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&pipelineState)));
+    }
+
+    return new RenderPipeline(pipelineState.Get(), rootSignature.Get());
+}
+
+VEObject<VEShader> GraphicsDevice::CreateShader(const std::vector<uint8_t>& code, const std::string& entry, VEShader::StageType stage)
+{
+    std::string shaderVersionName;
+    switch (stage)
+    {
+    case VEShader::StageType::Vertex:
+        shaderVersionName = "vs_5_0";
+        break;
+    case VEShader::StageType::Fragment:
+        shaderVersionName = "ps_5_0";
+        break;
+   // default:
+   // "Unsupported shader stage.;
+    }
+
+    UINT compileFlags = 0;
+#if defined(DEBUG) || defined(_DEBUG)  
+    compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+    ComPtr<ID3DBlob> byteCode;
+    ComPtr<ID3DBlob> errors;
+    HRESULT hr = D3DCompile2(code.data(), code.size(),
+        nullptr, nullptr,
+        D3D_COMPILE_STANDARD_FILE_INCLUDE,
+        entry.c_str(),
+        shaderVersionName.c_str(),
+        compileFlags,
+        0, 0, 0, 0, &byteCode, &errors);
+
+    if (errors != nullptr)
+        OutputDebugStringA((char*)errors->GetBufferPointer());
+    ThrowIfFailed(hr);
+
+    return new Shader(byteCode.Get(), stage, entry);
 }
