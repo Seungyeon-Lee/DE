@@ -4,11 +4,11 @@
 
 namespace Venus
 {
-	// RefCounter¸¦ »ó¼Ó ¹ŞÀº (°®°í ÀÖ´Â) Å¸ÀÔ
+	// RefCounterë¥¼ ìƒì† ë°›ì€ (ê°–ê³  ìˆëŠ”) íƒ€ì…
 	template<class T>
 	concept HasRefCounter = std::is_convertible_v<T*, VERefCounter*>;
 
-	// RefCounter¸¦ »ó¼Ó ¹ŞÀº Å¸ÀÔ°ú ¼­·Î Ä³½ºÆÃµÉ ¼ö ÀÖ´Â Å¸ÀÔ
+	// RefCounterë¥¼ ìƒì† ë°›ì€ íƒ€ì…ê³¼ ì„œë¡œ ìºìŠ¤íŒ…ë  ìˆ˜ ìˆëŠ” íƒ€ì…
 	template<class T, class U>
 	concept Convertible = std::is_convertible_v<T*, U*>;
 
@@ -24,8 +24,13 @@ namespace Venus
 		{
 			InternalAddRef();
 		}
+		VEObject(VEObject&& obj) noexcept
+			: target(obj.target)
+		{
+			obj.target = nullptr;
+		}
 
-		// convertible Çü½Äµµ µ¿ÀÏÇÏ°Ô Ã³¸®
+		// convertible í˜•ì‹ë„ ë™ì¼í•˜ê²Œ ì²˜ë¦¬
 		template<Convertible U>
 		VEObject(U* p) : target(p)
 		{
