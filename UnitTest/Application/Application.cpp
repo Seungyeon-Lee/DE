@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include <vector>
 #include "Venus.h"
+#include "tiny_obj_loader.h"
 
 using namespace Venus;
 
@@ -69,8 +70,8 @@ public:
 
 		renderPipeline = graphicsDevice->CreateRenderPipeline(descriptor);
 
-		camera.SetupViewMatrix(VEVector3{ 0.f, 0.f, -5.f }, VEVector3{}, VEVector3{ 0.f, 1.f, 0.f });
-		camera.SetPerspective(0.25f * 3.1415926535f, window->AspectRatio(), 1.0f, 1000.f);
+		camera.SetupViewMatrix(VEVector3{ 0.f, 0.f, -4.5f }, VEVector3{ }, VEVector3{ 0.f, 1.f, 0.f });
+		camera.SetPerspective(0.3f * 3.1415926535f, window->AspectRatio(), 1.0f, 1000.f);
 
 		Constants constants;
 		constants.worldViewProj = camera.ViewMatrix() * camera.ProjectionMatrix();
@@ -79,7 +80,7 @@ public:
 		constantsBuffer = graphicsDevice->CreateGPUBuffer(sizeof(Constants), VEGPUBuffer::CPUCacheMode::UPLOAD);
 		constantsBuffer->WriteData(&constants, sizeof(Constants));
 
-		// LoadTestModel();
+		LoadTestModel();
 
 		loopThread = std::jthread([this](std::stop_token token)
 		{
@@ -114,10 +115,20 @@ public:
 				VERect scissorRect(0, 0, (float)window->Width(), (float)window->Height());
 				encoder->SetScissorRect(scissorRect);
 
-				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), VELinearColor::green);
-				encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), VERenderCommandEncoder::DepthStencilClearFlag::All, 1.f, 0);
+				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), VELinearColor::violet);
+				encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), VERenderCommandEncoder::DepthStencilClearFlag::All, 0.f, 0);
 
 				encoder->SetRenderTargets({ swapChain->CurrentColorTexture() }, swapChain->DepthStencilTexture());
+
+				encoder->SetConstantBuffer(0, constantsBuffer);
+
+				for (const StaticMesh& mesh : staticMeshes)
+				{
+					encoder->SetVertexBuffer(mesh.vertexBuffer, sizeof(Vertex));
+
+					encoder->DrawPrimitives(VERenderCommandEncoder::PrimitiveType::Triangle,
+						(uint32_t)mesh.vertices.size(), 1, 0, 0);
+				}
 
 				encoder->EndEncoding();
 			}
@@ -127,6 +138,72 @@ public:
 
 		swapChain->Present();
 		commandQueue->WaitComplete();
+	}
+
+	void LoadTestModel()
+	{
+		tinyobj::ObjReader reader;
+		if (!reader.ParseFromFile("Resource/Meshes/bunny.obj"))
+		{
+			EXPECT_EQ(0, 1);
+		}
+
+		auto& attrib = reader.GetAttrib();
+		auto& shapes = reader.GetShapes();
+		auto& materials = reader.GetMaterials();
+
+		// Loop over shapes
+		for (size_t i = 0; i < shapes.size(); ++i)
+		{
+			std::vector<Vertex> vertices;
+			vertices.reserve(shapes[i].mesh.num_face_vertices.size() * 3);
+
+			// Loop over faces(polygon)
+			size_t index_offset = 0;
+			for (size_t j = 0; j < shapes[i].mesh.num_face_vertices.size(); ++j)
+			{
+				size_t fv = size_t(shapes[i].mesh.num_face_vertices[j]);
+
+				// Loop over vertices in the face.
+				for (size_t k = 0; k < fv; ++k)
+				{
+					Vertex vertex{};
+
+					tinyobj::index_t idx = shapes[i].mesh.indices[index_offset + k];
+
+					// access to vertex
+					vertex.pos = VEVector3(attrib.vertices[3 * size_t(idx.vertex_index) + 0],
+					attrib.vertices[3 * size_t(idx.vertex_index) + 1],
+					attrib.vertices[3 * size_t(idx.vertex_index) + 2]);
+
+					// Check if `normal_index` is zero or positive. negative = no normal data
+					if (idx.normal_index >= 0) {
+						vertex.normal = VEVector3(attrib.normals[3 * size_t(idx.normal_index) + 0],
+						attrib.normals[3 * size_t(idx.normal_index) + 1],
+						attrib.normals[3 * size_t(idx.normal_index) + 2]);
+					}
+
+					// Check if `texcoord_index` is zero or positive. negative = no texcoord data
+					/*if (idx.texcoord_index >= 0) {
+						tinyobj::real_t tx = attrib.texcoords[2 * size_t(idx.texcoord_index) + 0];
+						tinyobj::real_t ty = attrib.texcoords[2 * size_t(idx.texcoord_index) + 1];
+					}*/
+
+					// Optional: vertex colors
+					vertex.color = VELinearColor(attrib.colors[3 * size_t(idx.vertex_index) + 0],
+						attrib.colors[3 * size_t(idx.vertex_index) + 1],
+						attrib.colors[3 * size_t(idx.vertex_index) + 2],
+						1.f);
+
+					vertices.push_back(vertex);
+				}
+				index_offset += fv;
+			}
+
+			VEObject<VEGPUBuffer> vertexBuffer = graphicsDevice->CreateGPUBuffer(vertices.size() * sizeof(VEGPUBuffer), VEGPUBuffer::CPUCacheMode::UPLOAD);
+			vertexBuffer->WriteData(vertices.data(), vertices.size() * sizeof(VEGPUBuffer));
+			staticMeshes.emplace_back(std::move(vertices), vertexBuffer);
+		}
 	}
 
 private:

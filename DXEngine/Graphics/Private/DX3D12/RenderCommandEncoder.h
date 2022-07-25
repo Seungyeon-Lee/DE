@@ -1,14 +1,15 @@
 #pragma once
 #include "../../VERenderCommandEncoder.h"
-#include "CommandBuffer.h"
 #include "DXInclude.h"
+#include "CommandBuffer.h"
+#include "RenderPipeline.h"
 
 namespace Venus::Private::Direct3D12
 {
 	class RenderCommandEncoder : public VERenderCommandEncoder
 	{
 	public:
-		RenderCommandEncoder(CommandBuffer*, ID3D12GraphicsCommandList*);
+		RenderCommandEncoder(RenderPipeline*, CommandBuffer*, ID3D12GraphicsCommandList*);
 		~RenderCommandEncoder() = default;
 
 		void SetViewport(const VEViewport& viewport) override;

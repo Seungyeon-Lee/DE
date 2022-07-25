@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThirdParty", "ThirdParty", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "googletest", "ThirdParty\googletest\googletest.vcxproj", "{DD98156D-7474-4F95-8736-EF519E1100D2}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyobjloader", "tinyobjloader\tinyobjloader.vcxproj", "{440666C4-FF0F-44DC-A04C-E0F11E6517E7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyobjloader", "ThirdParty\tinyobjloader\tinyobjloader.vcxproj", "{440666C4-FF0F-44DC-A04C-E0F11E6517E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -41,7 +41,7 @@ void Window::Create() {
     handle = CreateWindowExW(
         0,                              // Optional window styles.
         WINDOW_CLASS_NAME,                     // Window class
-        L"Learn to Program Windows",    // Window text
+        L"Venus Engine",    // Window text
         WS_OVERLAPPEDWINDOW,            // Window style
         // Size and position
         CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,

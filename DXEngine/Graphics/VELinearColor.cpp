@@ -124,3 +124,4 @@ const VELinearColor VELinearColor::black = VELinearColor(0.f, 0.f, 0.f, 1.f);
 const VELinearColor VELinearColor::red = VELinearColor(1.f, 0.f, 0.f, 1.f);
 const VELinearColor VELinearColor::green = VELinearColor(0.f, 1.f, 0.f, 1.f);
 const VELinearColor VELinearColor::blue = VELinearColor(0.f, 0.f, 1.f, 1.f);
+const VELinearColor VELinearColor::violet = VELinearColor(0.717f, 0.36f, 1.f, 1.f);

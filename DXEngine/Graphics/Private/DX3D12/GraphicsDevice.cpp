@@ -408,9 +408,10 @@ VEObject<VERenderPipeline> GraphicsDevice::CreateRenderPipeline(const VERenderPi
         psoDesc.SampleDesc.Count = descriptor.sampleCount;
         psoDesc.DSVFormat = PixelFormat(descriptor.depthStencilAttachmentPixelFormat);
 
-        // TODO: need general type.
         psoDesc.RasterizerState = CD3DX12_RASTERIZER_DESC(D3D12_DEFAULT);
         psoDesc.DepthStencilState = CD3DX12_DEPTH_STENCIL_DESC(D3D12_DEFAULT);
+
+        // reversed-z를 사용하므로 depthfunction도 변경.
         psoDesc.DepthStencilState.DepthFunc = D3D12_COMPARISON_FUNC_GREATER;
         psoDesc.SampleMask = UINT_MAX;
         ThrowIfFailed(device->CreateGraphicsPipelineState(&psoDesc, IID_PPV_ARGS(&pipelineState)));

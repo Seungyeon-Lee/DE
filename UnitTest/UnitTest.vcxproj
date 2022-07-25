@@ -143,7 +143,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;Libs/googletest/include;../ThirdParty/googletest/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;Libs/googletest/include;../ThirdParty/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -185,6 +185,9 @@
     </ProjectReference>
     <ProjectReference Include="..\ThirdParty\googletest\googletest.vcxproj">
       <Project>{dd98156d-7474-4f95-8736-ef519e1100d2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\ThirdParty\tinyobjloader\tinyobjloader.vcxproj">
+      <Project>{440666c4-ff0f-44dc-a04c-e0f11e6517e7}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

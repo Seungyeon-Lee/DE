@@ -30,6 +30,7 @@ namespace Venus
         static const VELinearColor red;
         static const VELinearColor green;
         static const VELinearColor blue;
+        static const VELinearColor violet;
 
         union
         {
