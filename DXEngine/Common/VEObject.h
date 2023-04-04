@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "VERefCounter.h"
 #include <type_traits>
 

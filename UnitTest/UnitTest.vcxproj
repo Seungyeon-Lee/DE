@@ -143,7 +143,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../ThirdParty/googletest/googletest/include;../DXEngine;Libs/googletest/include;../ThirdParty/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

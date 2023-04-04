@@ -1,219 +1,232 @@
-#include "DXApp.h"
-#include <WindowsX.h>
+#include <iostream>
+#include "gtest/gtest.h"
+#include "Venus.h"
+#include "tiny_obj_loader.h"
 
-using Microsoft::WRL::ComPtr;
-using namespace std;
+using namespace Venus;
 
-LRESULT CALLBACK
-MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+struct Vertex
 {
-    return DXApp::GetApp()->MsgProc(hwnd, msg, wParam, lParam);
-}
+	VEVector3 pos;
+	VEVector3 normal;
+	VELinearColor color;
+};
 
-DXApp* DXApp::mApp = nullptr;
-DXApp* DXApp::GetApp()
+struct StaticMesh
 {
-    return mApp;
-}
+	std::vector <Vertex> vertices;
+	VEObject<VEGPUBuffer> vertexBuffer;
+};
 
-DXApp::DXApp(HINSTANCE hInstance)
-:	mhAppInst(hInstance)
+struct Constants
 {
-    assert(mApp == nullptr);
-    mApp = this;
-}
+	VEMatrix4 worldViewProj;
+};
 
-DXApp::~DXApp()
+class DXApp : public VEApplication
 {
-}
+public:
+	DXApp()
+		: window(nullptr)
+		, graphicsDevice(nullptr)
+	{}
 
-HINSTANCE DXApp::AppInst()const
-{
-	return mhAppInst;
-}
-
-HWND DXApp::MainWnd()const
-{
-	return mhMainWnd;
-}
-
-
-int DXApp::Run()
-{
-	return 0;
-}
-
-bool DXApp::Initialize()
-{
-	if(!InitMainWindow())
-		return false;
-
-	if(!InitDirect3D())
-		return false;
-
-	return true;
-}
- 
-LRESULT DXApp::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
-{
-	switch( msg )
+	void OnInitialize() override
 	{
-	// WM_ACTIVATE is sent when the window is activated or deactivated.  
-	// We pause the game when the window is deactivated and unpause it 
-	// when it becomes active.  
-	case WM_ACTIVATE:
-		if( LOWORD(wParam) == WA_INACTIVE )
+		window = VEWindow::CreatePlatformWindow();
+		window->Create();
+		window->Show();
+
+		graphicsDevice = VEGraphicsDevice::CreateGraphicsDevice();
+		commandQueue = graphicsDevice->CreateCommandQueue();
+		swapChain = commandQueue->CreateSwapChain(window);
+
+		VETextureDescriptor textureDesc;
+		textureDesc.type = VETexture::Type2D;
+		textureDesc.format = VEPixelFormat::RGBA8Unorm;
+		textureDesc.width = 4; // texture minimum size.
+		textureDesc.height = 4; // texture minimum size.
+		textureDesc.depth = 1;
+		textureDesc.mipmapLevelCount = 1;
+		textureDesc.sampleCount = 1;
+		textureDesc.usage = VETexture::UsageShaderRead;
+		texture = graphicsDevice->CreateTexture(textureDesc);
+
+		vertexShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "VS", VEShader::StageType::Vertex);
+		pixelShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "PS", VEShader::StageType::Fragment);
+
+		VERenderPipelineDescriptor descriptor{};
+		descriptor.sampleCount = 1;
+		descriptor.vertexShader = vertexShader;
+		descriptor.fragmentShader = pixelShader;
+		descriptor.vertexDescriptor.attributes = {
+			{VEVertexFormat::Float3, "POSITION", 0, 0},
+			{VEVertexFormat::Float3, "NORMAL", 0, 12 },
+			{VEVertexFormat::Float4, "COLOR", 0, 24 },
+		};
+		descriptor.colorAttachments = { { VEPixelFormat::RGBA8Unorm, false } };
+		descriptor.depthStencilAttachmentPixelFormat = VEPixelFormat::Depth24UnormStencil8;
+		descriptor.inputPrimitiveTopology = VEPrimitiveTopologyType::Triangle;
+
+		renderPipeline = graphicsDevice->CreateRenderPipeline(descriptor);
+
+		camera.SetupViewMatrix(VEVector3{ 0.f, 0.f, -4.5f }, VEVector3{ }, VEVector3{ 0.f, 1.f, 0.f });
+		camera.SetPerspective(0.3f * 3.1415926535f, window->AspectRatio(), 1.0f, 1000.f);
+
+		Constants constants;
+		constants.worldViewProj = camera.ViewMatrix() * camera.ProjectionMatrix();
+
+		// Update the constant buffer with the latest worldViewProj matrix.
+		constantsBuffer = graphicsDevice->CreateGPUBuffer(sizeof(Constants), VEGPUBuffer::CPUCacheMode::UPLOAD);
+		constantsBuffer->WriteData(&constants, sizeof(Constants));
+
+		LoadTestModel();
+
+		loopThread = std::jthread([this](std::stop_token token)
 		{
-			mAppPaused = true;
-		}
-		else
-		{
-			mAppPaused = false;
-		}
-		return 0;
-
-	// WM_SIZE is sent when the user resizes the window.  
-	case WM_SIZE:
-		// Save the new client area dimensions.
-		mClientWidth  = LOWORD(lParam);
-		mClientHeight = HIWORD(lParam);
-		if( md3dDevice )
-		{
-			if( wParam == SIZE_MINIMIZED )
+			while (!token.stop_requested())
 			{
-				mAppPaused = true;
-				mMinimized = true;
-				mMaximized = false;
+				Update();
+				Draw();
 			}
-			else if( wParam == SIZE_MAXIMIZED )
-			{
-				mAppPaused = false;
-				mMinimized = false;
-				mMaximized = true;
-			}
-			else if( wParam == SIZE_RESTORED )
-			{
-				
-				// Restoring from minimized state?
-				if( mMinimized )
-				{
-					mAppPaused = false;
-					mMinimized = false;
-				}
-
-				// Restoring from maximized state?
-				else if( mMaximized )
-				{
-					mAppPaused = false;
-					mMaximized = false;
-				}
-				else if( mResizing )
-				{
-					// If user is dragging the resize bars, we do not resize 
-					// the buffers here because as the user continuously 
-					// drags the resize bars, a stream of WM_SIZE messages are
-					// sent to the window, and it would be pointless (and slow)
-					// to resize for each WM_SIZE message received from dragging
-					// the resize bars.  So instead, we reset after the user is 
-					// done resizing the window and releases the resize bars, which 
-					// sends a WM_EXITSIZEMOVE message.
-				}
-				else // API call such as SetWindowPos or mSwapChain->SetFullscreenState.
-				{
-				}
-			}
-		}
-		return 0;
-
-	// WM_EXITSIZEMOVE is sent when the user grabs the resize bars.
-	case WM_ENTERSIZEMOVE:
-		mAppPaused = true;
-		mResizing  = true;
-		return 0;
-
-	// WM_EXITSIZEMOVE is sent when the user releases the resize bars.
-	// Here we reset everything based on the new window dimensions.
-	case WM_EXITSIZEMOVE:
-		mAppPaused = false;
-		mResizing  = false;
-		return 0;
- 
-	// WM_DESTROY is sent when the window is being destroyed.
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		return 0;
-
-	// The WM_MENUCHAR message is sent when a menu is active and the user presses 
-	// a key that does not correspond to any mnemonic or accelerator key. 
-	case WM_MENUCHAR:
-        // Don't beep when we alt-enter.
-        return MAKELRESULT(0, MNC_CLOSE);
-
-	// Catch this message so to prevent the window from becoming too small.
-	case WM_GETMINMAXINFO:
-		((MINMAXINFO*)lParam)->ptMinTrackSize.x = 200;
-		((MINMAXINFO*)lParam)->ptMinTrackSize.y = 200; 
-		return 0;
-
-	case WM_LBUTTONDOWN:
-	case WM_MBUTTONDOWN:
-	case WM_RBUTTONDOWN:
-	case WM_LBUTTONUP:
-	case WM_MBUTTONUP:
-	case WM_RBUTTONUP:
-	case WM_MOUSEMOVE:
-    case WM_KEYUP:
-        if(wParam == VK_ESCAPE)
-        {
-            PostQuitMessage(0);
-        }
-
-        return 0;
+		});
 	}
 
-	return DefWindowProc(hwnd, msg, wParam, lParam);
-}
-
-bool DXApp::InitMainWindow()
-{
-	WNDCLASS wc;
-	wc.style         = CS_HREDRAW | CS_VREDRAW;
-	wc.lpfnWndProc   = MainWndProc; 
-	wc.cbClsExtra    = 0;
-	wc.cbWndExtra    = 0;
-	wc.hInstance     = mhAppInst;
-	wc.hIcon         = LoadIcon(0, IDI_APPLICATION);
-	wc.hCursor       = LoadCursor(0, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
-	wc.lpszMenuName  = 0;
-	wc.lpszClassName = L"MainWnd";
-
-	if( !RegisterClass(&wc) )
+	void OnTerminate() override
 	{
-		MessageBox(0, L"RegisterClass Failed.", 0, 0);
-		return false;
+		loopThread.request_stop();
+		loopThread.join();
 	}
 
-	RECT R = { 0, 0, mClientWidth, mClientHeight };
-    AdjustWindowRect(&R, WS_OVERLAPPEDWINDOW, false);
-	int width  = R.right - R.left;
-	int height = R.bottom - R.top;
-
-	mhMainWnd = CreateWindow(L"MainWnd", mMainWndCaption.c_str(), 
-		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, mhAppInst, 0); 
-	if( !mhMainWnd )
+	void Update()
 	{
-		MessageBox(0, L"CreateWindow Failed.", 0, 0);
-		return false;
+
 	}
 
-	ShowWindow(mhMainWnd, SW_SHOW);
-	UpdateWindow(mhMainWnd);
+	void Draw()
+	{
+		if (VEObject<VECommandBuffer> commandBuffer = commandQueue->CreateCommandBuffer())
+		{
+			if (VEObject<VERenderCommandEncoder> encoder = commandBuffer->CreateRenderCommandEncoder(renderPipeline))
+			{
+				VEViewport viewport(0, 0, (float)window->Width(), (float)window->Height(), 0.f, 1.f);
+				encoder->SetViewport(viewport);
 
-	return true;
-}
+				VERect scissorRect(0, 0, (float)window->Width(), (float)window->Height());
+				encoder->SetScissorRect(scissorRect);
 
-bool DXApp::InitDirect3D()
+				encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), VELinearColor::violet);
+				encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), VERenderCommandEncoder::DepthStencilClearFlag::All, 0.f, 0);
+
+				encoder->SetRenderTargets({ swapChain->CurrentColorTexture() }, swapChain->DepthStencilTexture());
+
+				encoder->SetConstantBuffer(0, constantsBuffer);
+
+				for (const StaticMesh& mesh : staticMeshes)
+				{
+					encoder->SetVertexBuffer(mesh.vertexBuffer, sizeof(Vertex));
+
+					encoder->DrawPrimitives(VERenderCommandEncoder::PrimitiveType::Triangle,
+						(uint32_t)mesh.vertices.size(), 1, 0, 0);
+				}
+
+				encoder->EndEncoding();
+			}
+
+			commandBuffer->Commit();
+		}
+
+		swapChain->Present();
+		commandQueue->WaitComplete();
+	}
+
+	void LoadTestModel()
+	{
+		tinyobj::ObjReader reader;
+		if (!reader.ParseFromFile("Resource/Meshes/bunny.obj"))
+		{
+			EXPECT_EQ(0, 1);
+		}
+
+		auto& attrib = reader.GetAttrib();
+		auto& shapes = reader.GetShapes();
+		auto& materials = reader.GetMaterials();
+
+		// Loop over shapes
+		for (size_t i = 0; i < shapes.size(); ++i)
+		{
+			std::vector<Vertex> vertices;
+			vertices.reserve(shapes[i].mesh.num_face_vertices.size() * 3);
+
+			// Loop over faces(polygon)
+			size_t index_offset = 0;
+			for (size_t j = 0; j < shapes[i].mesh.num_face_vertices.size(); ++j)
+			{
+				size_t fv = size_t(shapes[i].mesh.num_face_vertices[j]);
+
+				// Loop over vertices in the face.
+				for (size_t k = 0; k < fv; ++k)
+				{
+					Vertex vertex{};
+
+					tinyobj::index_t idx = shapes[i].mesh.indices[index_offset + k];
+
+					// access to vertex
+					vertex.pos = VEVector3(attrib.vertices[3 * size_t(idx.vertex_index) + 0],
+						attrib.vertices[3 * size_t(idx.vertex_index) + 1],
+						attrib.vertices[3 * size_t(idx.vertex_index) + 2]);
+
+					// Check if `normal_index` is zero or positive. negative = no normal data
+					if (idx.normal_index >= 0) {
+						vertex.normal = VEVector3(attrib.normals[3 * size_t(idx.normal_index) + 0],
+							attrib.normals[3 * size_t(idx.normal_index) + 1],
+							attrib.normals[3 * size_t(idx.normal_index) + 2]);
+					}
+
+					// Check if `texcoord_index` is zero or positive. negative = no texcoord data
+					/*if (idx.texcoord_index >= 0) {
+						tinyobj::real_t tx = attrib.texcoords[2 * size_t(idx.texcoord_index) + 0];
+						tinyobj::real_t ty = attrib.texcoords[2 * size_t(idx.texcoord_index) + 1];
+					}*/
+
+					// Optional: vertex colors
+					vertex.color = VELinearColor(attrib.colors[3 * size_t(idx.vertex_index) + 0],
+						attrib.colors[3 * size_t(idx.vertex_index) + 1],
+						attrib.colors[3 * size_t(idx.vertex_index) + 2],
+						1.f);
+
+					vertices.push_back(vertex);
+				}
+				index_offset += fv;
+			}
+
+			VEObject<VEGPUBuffer> vertexBuffer = graphicsDevice->CreateGPUBuffer(vertices.size() * sizeof(VEGPUBuffer), VEGPUBuffer::CPUCacheMode::UPLOAD);
+			vertexBuffer->WriteData(vertices.data(), vertices.size() * sizeof(VEGPUBuffer));
+			staticMeshes.emplace_back(std::move(vertices), vertexBuffer);
+		}
+	}
+
+private:
+	std::jthread loopThread;
+
+	VEObject<VEWindow> window;
+	VEObject<VEGraphicsDevice> graphicsDevice;
+	VEObject<VECommandQueue> commandQueue;
+	VEObject<VESwapChain> swapChain;
+	VEObject<VERenderPipeline> renderPipeline;
+
+	VEObject<VETexture> texture;
+
+	VEObject<VEShader> vertexShader;
+	VEObject<VEShader> pixelShader;
+
+	VECamera camera;
+	std::vector<StaticMesh> staticMeshes;
+	VEObject<VEGPUBuffer> constantsBuffer;
+};
+
+int main(int argc, char** argv)
 {
-	return true;
+	DXApp app;
+	app.Run();
 }

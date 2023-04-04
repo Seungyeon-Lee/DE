@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "../VEInclude.h"
 #include "../Common/VEObject.h"
 #include "VECommandQueue.h"
