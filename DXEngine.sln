@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "googletest", "ThirdParty\go
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyobjloader", "ThirdParty\tinyobjloader\tinyobjloader.vcxproj", "{440666C4-FF0F-44DC-A04C-E0F11E6517E7}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXApp", "DXApp\DXApp.vcxproj", "{C4680F18-E037-4881-A760-CF9AC4C668C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -53,6 +55,14 @@ Global
 		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x64.Build.0 = Release|x64
 		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x86.ActiveCfg = Release|Win32
 		{440666C4-FF0F-44DC-A04C-E0F11E6517E7}.Release|x86.Build.0 = Release|Win32
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Debug|x64.ActiveCfg = Debug|x64
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Debug|x64.Build.0 = Debug|x64
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Debug|x86.Build.0 = Debug|Win32
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Release|x64.ActiveCfg = Release|x64
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Release|x64.Build.0 = Release|x64
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Release|x86.ActiveCfg = Release|Win32
+		{C4680F18-E037-4881-A760-CF9AC4C668C5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

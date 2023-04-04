@@ -276,6 +276,9 @@
     <ClInclude Include="Window\VEWindow.h" />
     <ClInclude Include="Window\Platform\Win32\Window.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DXApp\DXApp.vcxproj" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -311,4 +311,7 @@
       <UniqueIdentifier>{21ab078f-e8ca-4ade-a56c-bd0b1a764926}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\DXApp\DXApp.vcxproj" />
+  </ItemGroup>
 </Project>
