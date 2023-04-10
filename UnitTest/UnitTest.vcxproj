@@ -143,7 +143,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../DXEngine;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -161,7 +161,7 @@
       <ConformanceMode>true</ConformanceMode>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>../DXEngine;./Libs/googletest/include;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../DXEngine;../ThirdParty/googletest/googletest/include;../ThirdParty/tinyobjloader</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,6 +180,13 @@
     <ClCompile Include="Math\Vector.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="Math\Helper.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UnitTest.rc" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\DXEngine\DXEngine.vcxproj">
       <Project>{329f3f22-97c6-4f11-bd8e-0585af520d7b}</Project>
     </ProjectReference>
@@ -189,13 +196,6 @@
     <ProjectReference Include="..\ThirdParty\tinyobjloader\tinyobjloader.vcxproj">
       <Project>{440666c4-ff0f-44dc-a04c-e0f11e6517e7}</Project>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Math\Helper.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="UnitTest.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

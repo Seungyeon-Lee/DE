@@ -1,5 +1,5 @@
-#include <iostream>
 #include "gtest/gtest.h"
+#include <vector>
 #include "Venus.h"
 #include "tiny_obj_loader.h"
 
@@ -23,10 +23,10 @@ struct Constants
 	VEMatrix4 worldViewProj;
 };
 
-class DXApp : public VEApplication
+class TestApplication : public VEApplication
 {
 public:
-	DXApp()
+	TestApplication()
 		: window(nullptr)
 		, graphicsDevice(nullptr)
 	{}
@@ -225,8 +225,8 @@ private:
 	VEObject<VEGPUBuffer> constantsBuffer;
 };
 
-int main(int argc, char** argv)
+TEST(Application, Init)
 {
-	DXApp app;
+	TestApplication app;
 	app.Run();
 }
