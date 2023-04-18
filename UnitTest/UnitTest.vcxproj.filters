@@ -2,17 +2,28 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Math\Vector.cpp" />
-    <ClCompile Include="Math\Matrix.cpp" />
-    <ClCompile Include="Math\LinearTransform.cpp" />
-    <ClCompile Include="Math\AffineTransform.cpp" />
-    <ClCompile Include="Application\Application.cpp" />
+    <ClCompile Include="Math\AffineTransform.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\LinearTransform.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Matrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Math\Vector.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Math\Helper.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="Math\Helper.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="UnitTest.rc" />
+    <Filter Include="Math">
+      <UniqueIdentifier>{a35590f3-2b5c-4a1f-9db6-6e55ed7e673e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
