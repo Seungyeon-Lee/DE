@@ -15,15 +15,15 @@ namespace Venus
 
 		void SetPerspective(float fov, float aspect, float near, float far);
 
-		float NearZ() const { return near; }
-		float FarZ() const { return far; }
+		float NearZ() const { return nearZ; }
+		float FarZ() const { return farZ; }
 		VEVector3 Position() const { return position; }
 		VEMatrix4 ViewMatrix() const { return viewMatrix; }
 		VEMatrix4 ProjectionMatrix() const { return projectionMatrix; }
 
 	private:
-		float near;
-		float far;
+		float nearZ;
+		float farZ;
 		VEVector3 position;
 		VEMatrix4 viewMatrix;
 		VEMatrix4 projectionMatrix;

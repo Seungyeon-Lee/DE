@@ -3,8 +3,8 @@
 using namespace Venus;
 
 VECamera::VECamera()
-    : near(0.f)
-    , far(0.f)
+    : nearZ(0.f)
+    , farZ(0.f)
 {
 }
 
@@ -22,7 +22,7 @@ void VECamera::SetupViewMatrix(const VEVector3& pos,
     float y = VEVector3::Dot(-pos, up);
     float z = VEVector3::Dot(-pos, forward);
 
-    viewMatrix = {
+    this->viewMatrix = {
         right.x, up.x, forward.x, 0.0f,
         right.y, up.y, forward.y, 0.0f,
         right.z, up.z, forward.z, 0.0f,
@@ -30,16 +30,16 @@ void VECamera::SetupViewMatrix(const VEVector3& pos,
     };
 }
 
-void VECamera::SetPerspective(float fov, float aspect, float near, float far)
+void VECamera::SetPerspective(float fov, float aspect, float nearZ, float farZ)
 {
-    this->near = near;
-    this->far = far;
+    this->nearZ = nearZ;
+    this->farZ = farZ;
 
     // reversed-Z projection matrix
     float f = 1.0f / tanf(fov / 2.0f);
-    float scale = near / (near - far);
-    float bias = -far * scale;
-    projectionMatrix = {
+    float scale = nearZ / (nearZ - farZ);
+    float bias = -farZ * scale;
+    this->projectionMatrix = {
         f / aspect, 0.0f, 0.0f, 0.0f,
         0.0f, f, 0.0f, 0.0f,
         0.0f, 0.0f, scale, 1.0f,

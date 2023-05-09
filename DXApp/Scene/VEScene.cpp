@@ -53,7 +53,7 @@ void VEScene::Draw()
 			VERect scissorRect(0, 0, (float)window->Width(), (float)window->Height());
 			encoder->SetScissorRect(scissorRect);
 
-			encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), VELinearColor::violet);
+			encoder->ClearRenderTargetView(swapChain->CurrentColorTexture(), VELinearColor::black);
 			encoder->ClearDepthStencilView(swapChain->DepthStencilTexture(), VERenderCommandEncoder::DepthStencilClearFlag::All, 0.f, 0);
 
 			encoder->SetRenderTargets({ swapChain->CurrentColorTexture() }, swapChain->DepthStencilTexture());
@@ -111,8 +111,8 @@ void VEScene::BuildRenderPipeline()
 {
 	VERenderPipelineDescriptor descriptor{};
 	descriptor.sampleCount = 1;
-	descriptor.vertexShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "VS", VEShader::StageType::Vertex);
-	descriptor.fragmentShader = graphicsDevice->CreateShader(L"Resource/Shaders/SimpleShader.hlsl", "PS", VEShader::StageType::Fragment);
+	descriptor.vertexShader = graphicsDevice->CreateShader(L"Resource/Shaders/Default.hlsl", "VS", VEShader::StageType::Vertex);
+	descriptor.fragmentShader = graphicsDevice->CreateShader(L"Resource/Shaders/Default.hlsl", "PS", VEShader::StageType::Fragment);
 	descriptor.vertexDescriptor.attributes = {
 		{VEVertexFormat::Float3, "POSITION", 0, 0},
 		{VEVertexFormat::Float3, "NORMAL", 0, 12 },
@@ -254,8 +254,8 @@ VEModel VEScene::LoadModel(const std::string& path)
 			index_offset += fv;
 		}
 
-		VEObject<VEGPUBuffer> vertexBuffer = graphicsDevice->CreateGPUBuffer(vertices.size() * sizeof(VEGPUBuffer), VEGPUBuffer::CPUCacheMode::UPLOAD);
-		vertexBuffer->WriteData(vertices.data(), vertices.size() * sizeof(VEGPUBuffer));
+		VEObject<VEGPUBuffer> vertexBuffer = graphicsDevice->CreateGPUBuffer(vertices.size() * sizeof(VEVertex), VEGPUBuffer::CPUCacheMode::UPLOAD);
+		vertexBuffer->WriteData(vertices.data(), vertices.size() * sizeof(VEVertex));
 		newModel.meshes.emplace_back(std::move(vertices), vertexBuffer);
 	}
 
